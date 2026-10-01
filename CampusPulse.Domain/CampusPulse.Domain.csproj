@@ -41,11 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Announcement.cs" />
+    <Compile Include="Entities\AttendanceRecord.cs" />
+    <Compile Include="Entities\AttendanceSession.cs" />
+    <Compile Include="Entities\Lecturer.cs" />
+    <Compile Include="Entities\Module.cs" />
+    <Compile Include="Entities\Notification.cs" />
+    <Compile Include="Entities\Programme.cs" />
+    <Compile Include="Entities\Student.cs" />
+    <Compile Include="Entities\StudentModule.cs" />
+    <Compile Include="Entities\Timetable.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\Venue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
-    <Folder Include="Entities\" />
     <Folder Include="Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
