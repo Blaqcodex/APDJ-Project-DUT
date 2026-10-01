@@ -92,17 +92,17 @@ namespace CampusPulse.Infrastructure.Data
                 .WithMany()
                 .HasForeignKey(a => a.TimetableId);
 
-            // AttendanceSession → AttendanceRecord
             modelBuilder.Entity<AttendanceRecord>()
                 .HasOne<AttendanceSession>()
                 .WithMany()
-                .HasForeignKey(a => a.AttendanceSessionId);
+                .HasForeignKey(a => a.AttendanceSessionId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // Student → AttendanceRecord
             modelBuilder.Entity<AttendanceRecord>()
                 .HasOne<Student>()
                 .WithMany()
-                .HasForeignKey(a => a.StudentId);
+                .HasForeignKey(a => a.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // User → Notification
             modelBuilder.Entity<Notification>()
