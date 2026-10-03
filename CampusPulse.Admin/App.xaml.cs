@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CampusPulse.Admin
 {
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         public static CampusPulseDbContext DbContext { get; private set; } = null!;
 

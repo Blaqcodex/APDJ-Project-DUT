@@ -16,6 +16,8 @@ namespace CampusPulse.Infrastructure.Data
 
         public DbSet<Lecturer> Lecturers { get; set; }
 
+        public DbSet<Institution> Institutions { get; set; }
+
         public DbSet<Programme> Programmes { get; set; }
 
         public DbSet<Module> Modules { get; set; }
@@ -43,6 +45,11 @@ namespace CampusPulse.Infrastructure.Data
                 .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Student>(s => s.UserId);
+
+            modelBuilder.Entity<Student>()
+                .HasOne<Institution>()
+                .WithMany()
+                .HasForeignKey(s => s.InstitutionId);
 
             // User → Lecturer
             modelBuilder.Entity<Lecturer>()

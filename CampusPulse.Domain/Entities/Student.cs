@@ -6,6 +6,8 @@
 
         public int UserId { get; set; }
 
+        public int InstitutionId { get; set; }
+
         public string StudentNumber { get; set; } = "";
 
         public int ProgrammeId { get; set; }
