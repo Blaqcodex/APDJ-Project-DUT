@@ -18,5 +18,11 @@ namespace CampusPulse.Infrastructure.Repositories
             return dbContext.Users
                 .FirstOrDefault(user => user.Email == email);
         }
+
+        public void Add(User user)
+        {
+            dbContext.Users.Add(user);
+            dbContext.SaveChanges();
+        }
     }
 }
