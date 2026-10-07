@@ -3,4 +3,5 @@
   <Project Path="CampusPulse.Application/CampusPulse.Application.csproj" Id="d17ebcf1-667b-44ea-949d-515261ddac28" />
   <Project Path="CampusPulse.Domain/CampusPulse.Domain.csproj" Id="975432e0-2f07-43f9-a964-c0a39150ccf2" />
   <Project Path="CampusPulse.Infrastructure/CampusPulse.Infrastructure.csproj" Id="dc32d3da-85ca-4ee0-a1a8-4a3e03c5ac17" />
+  <Project Path="CampusPulse.Student/CampusPulse.Student.csproj" />
 </Solution>
