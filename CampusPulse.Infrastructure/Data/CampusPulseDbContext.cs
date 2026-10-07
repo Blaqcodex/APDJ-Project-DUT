@@ -40,6 +40,15 @@ namespace CampusPulse.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Institution>().HasData(
+                new Institution
+                {
+                    InstitutionId = 1,
+                    InstitutionName = "Durban University of Technology",
+                    StudentEmailDomain = "dut4life.ac.za"
+                }
+            );
+
             // User → Student
             modelBuilder.Entity<Student>()
                 .HasOne<User>()

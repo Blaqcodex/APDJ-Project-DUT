@@ -46,7 +46,7 @@ namespace CampusPulse.Application.Services
 
             email = email.Trim().ToLower();
 
-            const string studentEmailDomain = "@dut4life.ac.za";
+            /* const string studentEmailDomain = "@dut4life.ac.za";
 
             if (!email.EndsWith(
                 studentEmailDomain,
@@ -54,6 +54,8 @@ namespace CampusPulse.Application.Services
             {
                 return false;
             }
+
+            */
 
             if (userRepository.GetByEmail(email) != null)
             {
