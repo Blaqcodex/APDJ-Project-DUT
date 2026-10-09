@@ -9,17 +9,20 @@ namespace CampusPulse.Application.Services
         private readonly IStudentRepository studentRepository;
         private readonly IInstitutionRepository institutionRepository;
         private readonly IPasswordService passwordService;
+        private readonly IRegistrationTransaction registrationTransaction;
 
         public RegistrationService(
             IUserRepository userRepository,
             IStudentRepository studentRepository,
             IInstitutionRepository institutionRepository,
-            IPasswordService passwordService)
+            IPasswordService passwordService,
+            IRegistrationTransaction registrationTransaction)
         {
             this.userRepository = userRepository;
             this.studentRepository = studentRepository;
             this.institutionRepository = institutionRepository;
             this.passwordService = passwordService;
+            this.registrationTransaction = registrationTransaction;
         }
 
         public bool RegisterStudent(
@@ -90,18 +93,15 @@ namespace CampusPulse.Application.Services
                 Role = "Student"
             };
 
-            userRepository.Add(user);
-
             Student student = new Student
             {
-                UserId = user.UserId,
                 InstitutionId = institution.InstitutionId,
                 StudentNumber = studentNumber,
                 ProgrammeId = 0,
                 YearLevel = 0
             };
 
-            studentRepository.Add(student);
+            registrationTransaction.Register(user, student);
 
             return true;
         }

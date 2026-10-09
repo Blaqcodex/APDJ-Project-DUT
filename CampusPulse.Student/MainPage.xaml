@@ -122,7 +122,7 @@
                         FontSize="16"
                         FontAttributes="Bold"
                         TextColor="White"
-                        BackgroundColor="#1D4ED8"
+                        BackgroundColor="#6B2FE8"
                         Margin="0,8,0,0" />
 
                     <!-- Register -->
