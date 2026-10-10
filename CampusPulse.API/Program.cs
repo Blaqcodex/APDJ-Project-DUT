@@ -32,6 +32,8 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 // Register password recovery service.
 builder.Services.AddScoped<PasswordResetService>();
 
+builder.Services.AddHttpClient<BrevoEmailService>();
+
 // Configure JWT authentication.
 string jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("JWT signing key is missing.");
