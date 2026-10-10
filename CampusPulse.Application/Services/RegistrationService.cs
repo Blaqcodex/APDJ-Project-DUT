@@ -49,6 +49,13 @@ namespace CampusPulse.Application.Services
 
             email = email.Trim().ToLower();
 
+            if (!System.Text.RegularExpressions.Regex.IsMatch(
+                email,
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                return false;
+            }
+
             /* const string studentEmailDomain = "@dut4life.ac.za";
 
             if (!email.EndsWith(
