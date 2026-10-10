@@ -39,6 +39,23 @@ public static class MauiProgram
                 client.Timeout = TimeSpan.FromSeconds(15);
             });
 
+        builder.Services.AddHttpClient(
+            nameof(RegisterPage),
+            client =>
+            {
+        #if DEBUG
+                client.BaseAddress =
+                    new Uri("http://10.0.2.2:5240/");
+        #else
+                client.BaseAddress =
+                    new Uri("https://api.example.com/");
+        #endif
+
+                client.Timeout = TimeSpan.FromSeconds(15);
+            });
+
+        builder.Services.AddTransient<RegisterPage>();
+
         // Register secure authentication session storage.
         builder.Services.AddSingleton<
             ISessionService,

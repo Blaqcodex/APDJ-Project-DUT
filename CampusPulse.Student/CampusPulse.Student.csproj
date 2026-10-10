@@ -77,4 +77,10 @@
 		<ProjectReference Include="..\CampusPulse.Application\CampusPulse.Application.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="StudentDashboardPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

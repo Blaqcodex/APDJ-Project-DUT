@@ -272,6 +272,7 @@
 
                             <Button
                                 Text="Create account"
+                                Clicked="OnCreateAccountClicked"
                                 FontSize="13"
                                 FontAttributes="Bold"
                                 TextColor="#793FD2"

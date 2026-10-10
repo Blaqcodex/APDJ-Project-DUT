@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CampusPulse.Student.StudentDashboardPage"
+    BackgroundColor="#101027"
+    Title="Dashboard">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="0">
+
+                <!-- HEADER -->
+                <Border
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 0,0,28,28">
+
+                    <Border.Background>
+                        <LinearGradientBrush
+                            StartPoint="0,0"
+                            EndPoint="1,1">
+                            <GradientStop Color="#24204C" Offset="0" />
+                            <GradientStop Color="#56336A" Offset="0.55" />
+                            <GradientStop Color="#9A4E65" Offset="1" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+                    <VerticalStackLayout
+                        Padding="24,35,24,30"
+                        Spacing="22">
+
+                        <Grid ColumnDefinitions="*,Auto">
+
+                            <VerticalStackLayout Spacing="5">
+                                <Label
+                                    Text="CAMPUSPULSE"
+                                    FontSize="13"
+                                    CharacterSpacing="3"
+                                    FontAttributes="Bold"
+                                    TextColor="#FFAD83" />
+
+                                <Label
+                                    Text="Welcome back! 👋"
+                                    FontSize="27"
+                                    FontAttributes="Bold"
+                                    TextColor="White" />
+
+                                <Label
+                                    Text="Your academic day starts here."
+                                    FontSize="13"
+                                    TextColor="#E2D7EE" />
+                            </VerticalStackLayout>
+
+                            <Border
+                                Grid.Column="1"
+                                BackgroundColor="#55476E"
+                                StrokeThickness="0"
+                                Padding="13"
+                                VerticalOptions="Start"
+                                StrokeShape="RoundRectangle 18">
+
+                                <Label
+                                    Text="🔔"
+                                    FontSize="24" />
+                            </Border>
+                        </Grid>
+
+                        <!-- ATTENDANCE -->
+                        <Border
+                            BackgroundColor="#453B70"
+                            Stroke="#79618E"
+                            StrokeThickness="1"
+                            Padding="22"
+                            StrokeShape="RoundRectangle 24">
+
+                            <VerticalStackLayout Spacing="15">
+
+                                <Label
+                                    Text="OVERALL ATTENDANCE"
+                                    FontSize="12"
+                                    FontAttributes="Bold"
+                                    CharacterSpacing="2"
+                                    TextColor="#E1CDE9" />
+
+                                <Grid ColumnDefinitions="*,Auto">
+
+                                    <VerticalStackLayout
+                                        VerticalOptions="Center"
+                                        Spacing="7">
+
+                                        <Label
+                                            Text="--%"
+                                            FontSize="46"
+                                            FontAttributes="Bold"
+                                            TextColor="White" />
+
+                                        <Label
+                                            Text="Awaiting attendance records"
+                                            FontSize="12"
+                                            TextColor="#69E5E3" />
+                                    </VerticalStackLayout>
+
+                                    <Border
+                                        Grid.Column="1"
+                                        WidthRequest="105"
+                                        HeightRequest="105"
+                                        BackgroundColor="#625587"
+                                        Stroke="#8D7CA8"
+                                        StrokeThickness="5"
+                                        StrokeShape="RoundRectangle 55">
+
+                                        <Label
+                                            Text="✓"
+                                            FontSize="36"
+                                            TextColor="#69E5E3"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+                                    </Border>
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- MAIN CONTENT -->
+                <VerticalStackLayout
+                    Padding="20,28,20,35"
+                    Spacing="26">
+
+                    <VerticalStackLayout Spacing="16">
+
+                        <Label
+                            Text="QUICK ACTIONS"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            CharacterSpacing="1"
+                            TextColor="#D0C9E6" />
+
+                        <Grid
+                            ColumnDefinitions="*,*,*"
+                            RowDefinitions="Auto,Auto"
+                            ColumnSpacing="10"
+                            RowSpacing="10">
+
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                BackgroundColor="#34305E"
+                                Padding="12"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18">
+                                <VerticalStackLayout Spacing="9">
+                                    <Label Text="▦" FontSize="28"
+                                           TextColor="#FF956B"
+                                           HorizontalOptions="Center" />
+                                    <Label Text="Scan QR"
+                                           FontSize="12"
+                                           TextColor="White"
+                                           HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                BackgroundColor="#34305E"
+                                Padding="12"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18">
+                                <VerticalStackLayout Spacing="9">
+                                    <Label Text="📅" FontSize="26"
+                                           HorizontalOptions="Center" />
+                                    <Label Text="Timetable"
+                                           FontSize="12"
+                                           TextColor="White"
+                                           HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                BackgroundColor="#234859"
+                                Padding="12"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18">
+                                <VerticalStackLayout Spacing="9">
+                                    <Label Text="✓" FontSize="28"
+                                           TextColor="#69E5E3"
+                                           HorizontalOptions="Center" />
+                                    <Label Text="Attendance"
+                                           FontSize="12"
+                                           TextColor="White"
+                                           HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <Border
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                BackgroundColor="#56314F"
+                                Padding="12"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18">
+                                <VerticalStackLayout Spacing="9">
+                                    <Label Text="📢" FontSize="26"
+                                           HorizontalOptions="Center" />
+                                    <Label Text="Notices"
+                                           FontSize="12"
+                                           TextColor="White"
+                                           HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <Border
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                BackgroundColor="#59402F"
+                                Padding="12"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18">
+                                <VerticalStackLayout Spacing="9">
+                                    <Label Text="▣" FontSize="28"
+                                           TextColor="#FFAD83"
+                                           HorizontalOptions="Center" />
+                                    <Label Text="Student Card"
+                                           FontSize="12"
+                                           TextColor="White"
+                                           HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <!-- TODAY'S CLASSES -->
+                    <VerticalStackLayout Spacing="14">
+
+                        <Label
+                            Text="TODAY'S CLASSES"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            CharacterSpacing="1"
+                            TextColor="#D0C9E6" />
+
+                        <Border
+                            BackgroundColor="#242342"
+                            Stroke="#38365C"
+                            StrokeThickness="1"
+                            Padding="20"
+                            StrokeShape="RoundRectangle 20">
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label
+                                    Text="No classes loaded yet"
+                                    FontSize="17"
+                                    FontAttributes="Bold"
+                                    TextColor="White" />
+
+                                <Label
+                                    Text="Your timetable will appear here when connected to CampusPulse."
+                                    FontSize="13"
+                                    TextColor="#B5B4D0" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- NOTIFICATIONS -->
+                    <VerticalStackLayout Spacing="14">
+
+                        <Label
+                            Text="NOTIFICATIONS"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            CharacterSpacing="1"
+                            TextColor="#D0C9E6" />
+
+                        <Border
+                            BackgroundColor="#242342"
+                            Stroke="#38365C"
+                            StrokeThickness="1"
+                            Padding="20"
+                            StrokeShape="RoundRectangle 20">
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label
+                                    Text="You're all caught up"
+                                    FontSize="17"
+                                    FontAttributes="Bold"
+                                    TextColor="White" />
+
+                                <Label
+                                    Text="Your campus alerts and reminders will appear here."
+                                    FontSize="13"
+                                    TextColor="#B5B4D0" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- BOTTOM NAVIGATION VISUAL FOUNDATION -->
+        <Border
+            Grid.Row="1"
+            BackgroundColor="#1B1936"
+            Stroke="#34305E"
+            StrokeThickness="1"
+            Padding="12,14">
+
+            <Grid ColumnDefinitions="*,*,*,*,*">
+
+                <Label Grid.Column="0"
+                       Text="⌂"
+                       FontSize="27"
+                       TextColor="#FF956B"
+                       HorizontalOptions="Center" />
+
+                <Label Grid.Column="1"
+                       Text="📅"
+                       FontSize="23"
+                       HorizontalOptions="Center" />
+
+                <Border Grid.Column="2"
+                        BackgroundColor="#FF956B"
+                        Padding="12"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 20"
+                        HorizontalOptions="Center">
+                    <Label Text="▦"
+                           FontSize="25"
+                           TextColor="#101027" />
+                </Border>
+
+                <Label Grid.Column="3"
+                       Text="🔔"
+                       FontSize="23"
+                       HorizontalOptions="Center" />
+
+                <Label Grid.Column="4"
+                       Text="♙"
+                       FontSize="27"
+                       TextColor="#B5B4D0"
+                       HorizontalOptions="Center" />
+
+            </Grid>
+        </Border>
+
+    </Grid>
+</ContentPage>

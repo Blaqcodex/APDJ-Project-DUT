@@ -29,10 +29,10 @@ namespace CampusPulse.API.Controllers
             bool registered = _registrationService.RegisterStudent(
                 request.FirstName,
                 request.LastName,
-                request.Email,
+                request.Email.Trim().ToLowerInvariant(),
                 request.StudentNumber,
                 request.Password
-            );
+    );
 
             if (!registered)
             {

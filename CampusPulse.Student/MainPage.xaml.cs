@@ -71,7 +71,8 @@ namespace CampusPulse.Student
                 {
                     await sessionService.SaveTokenAsync(result.Token);
 
-                    string? savedToken = await sessionService.GetTokenAsync();
+                    string? savedToken =
+                        await sessionService.GetTokenAsync();
 
                     if (string.IsNullOrWhiteSpace(savedToken) ||
                         savedToken != result.Token)
@@ -88,7 +89,7 @@ namespace CampusPulse.Student
                 {
                     await DisplayAlertAsync(
                         "Session Error",
-                        "Your login was verified, but the session could not be saved. Please try again.",
+                        "Your session could not be saved. Please try again.",
                         "OK");
 
                     return;
@@ -101,15 +102,22 @@ namespace CampusPulse.Student
                     $"Login successful. Welcome {result.FirstName}!",
                     "OK");
 
-                // Next milestone:
-                // Validate the saved session and navigate
-                // to the Student Dashboard.
+                await Shell.Current.GoToAsync(
+                    nameof(StudentDashboardPage));
             }
             finally
             {
                 SignInButton.IsEnabled = true;
                 SignInButton.Text = "Sign In  →";
             }
+        }
+
+        private async void OnCreateAccountClicked(
+            object? sender,
+            EventArgs e)
+        {
+            await Shell.Current.GoToAsync(
+                nameof(RegisterPage));
         }
     }
 }

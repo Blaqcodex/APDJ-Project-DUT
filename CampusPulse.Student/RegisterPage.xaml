@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CampusPulse.Student.RegisterPage"
+    Title="Create Account"
+    BackgroundColor="#171735">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="25,35"
+            Spacing="17">
+
+            <Label
+                Text="CampusPulse"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="#FF956B" />
+
+            <Label
+                Text="Create your account"
+                FontSize="27"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <Label
+                Text="Register using your DUT student details."
+                FontSize="14"
+                TextColor="#D9D2F2" />
+
+            <Border
+                BackgroundColor="#F9F7FF"
+                Padding="22"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+
+                <VerticalStackLayout Spacing="15">
+
+                    <Label Text="First Name"
+                           TextColor="#241A49"
+                           FontAttributes="Bold" />
+
+                    <Entry x:Name="FirstNameEntry"
+                           Placeholder="First name"
+                           TextColor="#241A49"
+                           BackgroundColor="#EEEAF8" />
+
+                    <Label Text="Last Name"
+                           TextColor="#241A49"
+                           FontAttributes="Bold" />
+
+                    <Entry x:Name="LastNameEntry"
+                           Placeholder="Last name"
+                           TextColor="#241A49"
+                           BackgroundColor="#EEEAF8" />
+
+                    <Label Text="Student Number"
+                           TextColor="#241A49"
+                           FontAttributes="Bold" />
+
+                    <Entry x:Name="StudentNumberEntry"
+                           Placeholder="e.g. 26005836"
+                           Keyboard="Numeric"
+                           MaxLength="8"
+                           TextColor="#241A49"
+                           BackgroundColor="#EEEAF8" />
+
+                    <Label Text="DUT Email"
+                           TextColor="#241A49"
+                           FontAttributes="Bold" />
+
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="26005836@dut4life.ac.za"
+                           Keyboard="Email"
+                           TextColor="#241A49"
+                           BackgroundColor="#EEEAF8" />
+
+                    <Label Text="Password"
+                           TextColor="#241A49"
+                           FontAttributes="Bold" />
+
+                    <Entry x:Name="PasswordEntry"
+                           Placeholder="At least 8 characters"
+                           IsPassword="True"
+                           TextColor="#241A49"
+                           BackgroundColor="#EEEAF8" />
+
+                    <Label Text="Confirm Password"
+                           TextColor="#241A49"
+                           FontAttributes="Bold" />
+
+                    <Entry x:Name="ConfirmPasswordEntry"
+                           Placeholder="Confirm password"
+                           IsPassword="True"
+                           TextColor="#241A49"
+                           BackgroundColor="#EEEAF8" />
+
+                    <Button
+                        x:Name="RegisterButton"
+                        Text="Create Account"
+                        BackgroundColor="#FF956B"
+                        TextColor="#171735"
+                        FontAttributes="Bold"
+                        HeightRequest="54"
+                        CornerRadius="14"
+                        Clicked="OnRegisterClicked" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <Button
+                Text="Already have an account? Sign In"
+                TextColor="#69E5E3"
+                BackgroundColor="Transparent"
+                Clicked="OnBackToLoginClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
