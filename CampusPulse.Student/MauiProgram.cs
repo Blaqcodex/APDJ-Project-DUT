@@ -27,7 +27,7 @@ public static class MauiProgram
             AuthenticationApiService>(client =>
             {
 #if DEBUG
-                // Android emulator connects to the Windows host using 10.0.2.2.
+                // Android emulator connects to the Windows host.
                 client.BaseAddress = new Uri(
                     "http://10.0.2.2:5240/");
 #else
@@ -38,6 +38,11 @@ public static class MauiProgram
 
                 client.Timeout = TimeSpan.FromSeconds(15);
             });
+
+        // Register secure authentication session storage.
+        builder.Services.AddSingleton<
+            ISessionService,
+            SessionService>();
 
 #if DEBUG
         builder.Logging.AddDebug();

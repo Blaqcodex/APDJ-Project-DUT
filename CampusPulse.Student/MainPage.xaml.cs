@@ -6,12 +6,16 @@ namespace CampusPulse.Student
     public partial class MainPage : ContentPage
     {
         private readonly IAuthenticationApiService authenticationService;
+        private readonly ISessionService sessionService;
 
-        public MainPage(IAuthenticationApiService authenticationService)
+        public MainPage(
+            IAuthenticationApiService authenticationService,
+            ISessionService sessionService)
         {
             InitializeComponent();
 
             this.authenticationService = authenticationService;
+            this.sessionService = sessionService;
         }
 
         private async void OnSignInClicked(
@@ -52,15 +56,45 @@ namespace CampusPulse.Student
                     return;
                 }
 
-                if (result.Role != "Student")
+                if (result.Role != "Student" ||
+                    string.IsNullOrWhiteSpace(result.Token))
                 {
                     await DisplayAlertAsync(
                         "Access Denied",
-                        "This application is for students only.",
+                        "A valid student session could not be created.",
                         "OK");
 
                     return;
                 }
+
+                try
+                {
+                    await sessionService.SaveTokenAsync(result.Token);
+
+                    string? savedToken = await sessionService.GetTokenAsync();
+
+                    if (string.IsNullOrWhiteSpace(savedToken) ||
+                        savedToken != result.Token)
+                    {
+                        await DisplayAlertAsync(
+                            "Session Error",
+                            "The authentication session could not be verified.",
+                            "OK");
+
+                        return;
+                    }
+                }
+                catch (Exception)
+                {
+                    await DisplayAlertAsync(
+                        "Session Error",
+                        "Your login was verified, but the session could not be saved. Please try again.",
+                        "OK");
+
+                    return;
+                }
+
+                PasswordEntry.Text = string.Empty;
 
                 await DisplayAlertAsync(
                     "Welcome!",
@@ -68,7 +102,8 @@ namespace CampusPulse.Student
                     "OK");
 
                 // Next milestone:
-                // Store the JWT securely and navigate to the dashboard.
+                // Validate the saved session and navigate
+                // to the Student Dashboard.
             }
             finally
             {
