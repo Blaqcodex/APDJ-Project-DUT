@@ -1,4 +1,4 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
 using CampusPulse.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,10 +43,25 @@ namespace CampusPulse.API.Controllers
 
     public class RegisterRequest
     {
+        [Required]
+        [StringLength(50, MinimumLength = 2)]
         public string FirstName { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(50, MinimumLength = 2)]
         public string LastName { get; set; } = string.Empty;
+
+        [Required]
+        [EmailAddress]
         public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [RegularExpression(@"^\d{8}$",
+            ErrorMessage = "Student number must contain exactly 8 digits.")]
         public string StudentNumber { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100, MinimumLength = 8)]
         public string Password { get; set; } = string.Empty;
     }
 }
