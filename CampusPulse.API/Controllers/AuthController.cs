@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 using CampusPulse.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,14 @@ namespace CampusPulse.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IRegistrationService _registrationService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public AuthController(IRegistrationService registrationService)
+        public AuthController(
+            IRegistrationService registrationService,
+            IAuthenticationService authenticationService)
         {
             _registrationService = registrationService;
+            _authenticationService = authenticationService;
         }
 
         [HttpPost("register")]
@@ -39,6 +44,32 @@ namespace CampusPulse.API.Controllers
                 message = "Student registered successfully."
             });
         }
+
+        [HttpPost("login")]
+        public IActionResult Login(LoginRequest request)
+        {
+            var user = _authenticationService.Login(
+                request.Email.Trim().ToLowerInvariant(),
+                request.Password
+            );
+
+            if (user == null || user.Role != "Student")
+            {
+                return Unauthorized(new
+                {
+                    message = "Invalid email or password."
+                });
+            }
+
+            return Ok(new
+            {
+                message = "Login successful.",
+                userId = user.UserId,
+                firstName = user.FirstName,
+                lastName = user.LastName,
+                role = user.Role
+            });
+        }
     }
 
     public class RegisterRequest
@@ -62,6 +93,16 @@ namespace CampusPulse.API.Controllers
 
         [Required]
         [StringLength(100, MinimumLength = 8)]
+        public string Password { get; set; } = string.Empty;
+    }
+
+    public class LoginRequest
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
         public string Password { get; set; } = string.Empty;
     }
 }
