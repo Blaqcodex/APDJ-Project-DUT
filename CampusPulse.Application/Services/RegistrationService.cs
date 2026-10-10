@@ -1,5 +1,8 @@
 ﻿using CampusPulse.Application.Interfaces;
 using CampusPulse.Domain.Entities;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CampusPulse.Application.Services
 {
@@ -30,13 +33,15 @@ namespace CampusPulse.Application.Services
             string lastName,
             string email,
             string studentNumber,
-            string password)
+            string password,
+            string recoveryEmail)
         {
             if (string.IsNullOrWhiteSpace(firstName) ||
                 string.IsNullOrWhiteSpace(lastName) ||
                 string.IsNullOrWhiteSpace(email) ||
                 string.IsNullOrWhiteSpace(studentNumber) ||
-                string.IsNullOrWhiteSpace(password))
+                string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(recoveryEmail))
             {
                 return false;
             }
@@ -47,25 +52,31 @@ namespace CampusPulse.Application.Services
                 return false;
             }
 
-            email = email.Trim().ToLower();
+            email = email.Trim().ToLowerInvariant();
+            recoveryEmail = recoveryEmail.Trim().ToLowerInvariant();
 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(
+            string expectedEmail = $"{studentNumber}@dut4life.ac.za";
+
+            if (!string.Equals(
                 email,
-                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-            {
-                return false;
-            }
-
-            /* const string studentEmailDomain = "@dut4life.ac.za";
-
-            if (!email.EndsWith(
-                studentEmailDomain,
+                expectedEmail,
                 StringComparison.OrdinalIgnoreCase))
             {
                 return false;
             }
 
-            */
+            if (!Regex.IsMatch(
+                recoveryEmail,
+                @"^[^@\s]+@gmail\.com$",
+                RegexOptions.IgnoreCase))
+            {
+                return false;
+            }
+
+            if (password.Length < 8)
+            {
+                return false;
+            }
 
             if (userRepository.GetByEmail(email) != null)
             {
@@ -96,6 +107,8 @@ namespace CampusPulse.Application.Services
                 FirstName = firstName.Trim(),
                 LastName = lastName.Trim(),
                 Email = email,
+                RecoveryEmail = recoveryEmail,
+                RecoveryEmailVerified = false,
                 PasswordHash = passwordHash,
                 Role = "Student"
             };

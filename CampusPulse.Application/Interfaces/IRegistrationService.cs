@@ -7,7 +7,8 @@
             string lastName,
             string email,
             string studentNumber,
-            string password
+            string password,
+            string recoveryEmail
         );
     }
 }

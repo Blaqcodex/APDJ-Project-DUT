@@ -75,6 +75,21 @@
                            TextColor="#241A49"
                            BackgroundColor="#EEEAF8" />
 
+                    <Label Text="Personal Recovery Gmail"
+                           TextColor="#241A49"
+                           FontAttributes="Bold" />
+
+                    <Entry x:Name="RecoveryEmailEntry"
+                           Placeholder="yourname@gmail.com"
+                           Keyboard="Email"
+                           TextColor="#241A49"
+                           BackgroundColor="#EEEAF8" />
+
+                    <Label
+                        Text="We'll use this address to help you recover your account after verification."
+                        FontSize="12"
+                        TextColor="#645B80" />
+
                     <Label Text="Password"
                            TextColor="#241A49"
                            FontAttributes="Bold" />
@@ -109,7 +124,7 @@
             </Border>
 
             <Button
-                Text="Already have an account? Sign In"
+                Text="Already have an account? Tap to here Sign In"
                 TextColor="#69E5E3"
                 BackgroundColor="Transparent"
                 Clicked="OnBackToLoginClicked" />

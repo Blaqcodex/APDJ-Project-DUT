@@ -11,35 +11,41 @@ namespace CampusPulse.Infrastructure.Data
         }
 
         public DbSet<User> Users { get; set; }
-
+        public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
         public DbSet<Student> Students { get; set; }
-
         public DbSet<Lecturer> Lecturers { get; set; }
-
         public DbSet<Institution> Institutions { get; set; }
-
         public DbSet<Programme> Programmes { get; set; }
-
         public DbSet<Module> Modules { get; set; }
-
         public DbSet<StudentModule> StudentModules { get; set; }
-
         public DbSet<Venue> Venues { get; set; }
-
         public DbSet<Timetable> Timetables { get; set; }
-
         public DbSet<AttendanceSession> AttendanceSessions { get; set; }
-
         public DbSet<AttendanceRecord> AttendanceRecords { get; set; }
-
         public DbSet<Announcement> Announcements { get; set; }
-
         public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // Password Reset Token → User
+            modelBuilder.Entity<PasswordResetToken>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(token => token.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PasswordResetToken>()
+                .Property(token => token.TokenHash)
+                .IsRequired()
+                .HasMaxLength(450);
+
+            modelBuilder.Entity<PasswordResetToken>()
+                .HasIndex(token => token.TokenHash)
+                .IsUnique();
+
+            // DUT institution
             modelBuilder.Entity<Institution>().HasData(
                 new Institution
                 {

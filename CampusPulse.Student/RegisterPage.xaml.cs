@@ -1,6 +1,7 @@
 
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace CampusPulse.Student;
 
@@ -15,6 +16,7 @@ public partial class RegisterPage : ContentPage
         httpClient = httpClientFactory.CreateClient(
             nameof(RegisterPage));
     }
+
     private async void OnRegisterClicked(
         object? sender,
         EventArgs e)
@@ -23,6 +25,8 @@ public partial class RegisterPage : ContentPage
         string lastName = LastNameEntry.Text?.Trim() ?? "";
         string studentNumber = StudentNumberEntry.Text?.Trim() ?? "";
         string email = EmailEntry.Text?.Trim().ToLowerInvariant() ?? "";
+        string recoveryEmail =
+            RecoveryEmailEntry.Text?.Trim().ToLowerInvariant() ?? "";
         string password = PasswordEntry.Text ?? "";
         string confirmPassword = ConfirmPasswordEntry.Text ?? "";
 
@@ -30,7 +34,9 @@ public partial class RegisterPage : ContentPage
             string.IsNullOrWhiteSpace(lastName) ||
             string.IsNullOrWhiteSpace(studentNumber) ||
             string.IsNullOrWhiteSpace(email) ||
-            string.IsNullOrWhiteSpace(password))
+            string.IsNullOrWhiteSpace(recoveryEmail) ||
+            string.IsNullOrWhiteSpace(password) ||
+            string.IsNullOrWhiteSpace(confirmPassword))
         {
             await DisplayAlertAsync(
                 "Missing Details",
@@ -57,6 +63,18 @@ public partial class RegisterPage : ContentPage
             await DisplayAlertAsync(
                 "Invalid DUT Email",
                 "Your DUT email must match your student number.",
+                "OK");
+            return;
+        }
+
+        if (!Regex.IsMatch(
+            recoveryEmail,
+            @"^[^@\s]+@gmail\.com$",
+            RegexOptions.IgnoreCase))
+        {
+            await DisplayAlertAsync(
+                "Invalid Recovery Email",
+                "Please enter a valid personal Gmail address.",
                 "OK");
             return;
         }
@@ -90,13 +108,9 @@ public partial class RegisterPage : ContentPage
                 LastName = lastName,
                 StudentNumber = studentNumber,
                 Email = email,
+                RecoveryEmail = recoveryEmail,
                 Password = password
             };
-
-            await DisplayAlertAsync(
-                "Debug",
-                $"Sending registration to: {httpClient.BaseAddress}",
-                "OK");
 
             using HttpResponseMessage response =
                 await httpClient.PostAsJsonAsync(
@@ -137,7 +151,9 @@ public partial class RegisterPage : ContentPage
 
             await DisplayAlertAsync(
                 "Account Created",
-                "Your student account was created successfully. Please sign in.",
+                "Your account was created successfully. " +
+                "Your recovery Gmail still needs verification. " +
+                "Please sign in.",
                 "OK");
 
             await Shell.Current.GoToAsync("..");

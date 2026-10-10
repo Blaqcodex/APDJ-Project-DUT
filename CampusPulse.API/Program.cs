@@ -29,6 +29,9 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
+// Register password recovery service.
+builder.Services.AddScoped<PasswordResetService>();
+
 // Configure JWT authentication.
 string jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("JWT signing key is missing.");
@@ -68,7 +71,6 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
-// Register API controllers and OpenAPI.
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 

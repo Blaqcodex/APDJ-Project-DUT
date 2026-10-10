@@ -126,6 +126,14 @@ namespace CampusPulse.Infrastructure.Migrations
                     b.HasKey("InstitutionId");
 
                     b.ToTable("Institutions");
+
+                    b.HasData(
+                        new
+                        {
+                            InstitutionId = 1,
+                            InstitutionName = "Durban University of Technology",
+                            StudentEmailDomain = "dut4life.ac.za"
+                        });
                 });
 
             modelBuilder.Entity("CampusPulse.Domain.Entities.Lecturer", b =>
@@ -205,6 +213,41 @@ namespace CampusPulse.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("CampusPulse.Domain.Entities.PasswordResetToken", b =>
+                {
+                    b.Property<int>("PasswordResetTokenId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PasswordResetTokenId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TokenHash")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("UsedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PasswordResetTokenId");
+
+                    b.HasIndex("TokenHash")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PasswordResetTokens");
                 });
 
             modelBuilder.Entity("CampusPulse.Domain.Entities.Programme", b =>
@@ -342,6 +385,12 @@ namespace CampusPulse.Infrastructure.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RecoveryEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RecoveryEmailVerified")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
@@ -412,6 +461,15 @@ namespace CampusPulse.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("CampusPulse.Domain.Entities.Notification", b =>
+                {
+                    b.HasOne("CampusPulse.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CampusPulse.Domain.Entities.PasswordResetToken", b =>
                 {
                     b.HasOne("CampusPulse.Domain.Entities.User", null)
                         .WithMany()

@@ -1,5 +1,5 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using CampusPulse.API.Services;
 using CampusPulse.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,15 +12,18 @@ namespace CampusPulse.API.Controllers
         private readonly IRegistrationService _registrationService;
         private readonly IAuthenticationService _authenticationService;
         private readonly IJwtTokenService _jwtTokenService;
+        private readonly PasswordResetService _passwordResetService;
 
         public AuthController(
             IRegistrationService registrationService,
             IAuthenticationService authenticationService,
-            IJwtTokenService jwtTokenService)
+            IJwtTokenService jwtTokenService,
+            PasswordResetService passwordResetService)
         {
             _registrationService = registrationService;
             _authenticationService = authenticationService;
             _jwtTokenService = jwtTokenService;
+            _passwordResetService = passwordResetService;
         }
 
         [HttpPost("register")]
@@ -31,20 +34,21 @@ namespace CampusPulse.API.Controllers
                 request.LastName,
                 request.Email.Trim().ToLowerInvariant(),
                 request.StudentNumber,
-                request.Password
-    );
+                request.Password,
+                request.RecoveryEmail.Trim().ToLowerInvariant()
+            );
 
             if (!registered)
             {
                 return BadRequest(new
                 {
-                    message = "Registration failed. Check your details or whether the account already exists."
+                    message = "Registration failed. Check your DUT email, student number, recovery Gmail address, or existing account."
                 });
             }
 
             return Ok(new
             {
-                message = "Student registered successfully."
+                message = "Student registered successfully. Your recovery email still needs verification."
             });
         }
 
@@ -69,11 +73,45 @@ namespace CampusPulse.API.Controllers
             return Ok(new
             {
                 message = "Login successful.",
-                token = token,
+                token,
                 userId = user.UserId,
                 firstName = user.FirstName,
                 lastName = user.LastName,
                 role = user.Role
+            });
+        }
+
+        [HttpPost("forgot-password")]
+        public IActionResult ForgotPassword(
+            ForgotPasswordRequest request)
+        {
+            // Recovery-email verification and delivery
+            // must be implemented before issuing usable reset tokens.
+            return Ok(new
+            {
+                message = "If this email is registered and verified, password reset instructions will be sent."
+            });
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword(
+            ResetPasswordRequest request)
+        {
+            bool success = await _passwordResetService.ResetPasswordAsync(
+                request.Token,
+                request.NewPassword);
+
+            if (!success)
+            {
+                return BadRequest(new
+                {
+                    message = "This reset link is invalid or has expired."
+                });
+            }
+
+            return Ok(new
+            {
+                message = "Password updated successfully. You can now log in."
             });
         }
     }
@@ -93,13 +131,18 @@ namespace CampusPulse.API.Controllers
         public string Email { get; set; } = string.Empty;
 
         [Required]
-        [RegularExpression(@"^\d{8}$",
+        [RegularExpression(
+            @"^\d{8}$",
             ErrorMessage = "Student number must contain exactly 8 digits.")]
         public string StudentNumber { get; set; } = string.Empty;
 
         [Required]
         [StringLength(100, MinimumLength = 8)]
         public string Password { get; set; } = string.Empty;
+
+        [Required]
+        [EmailAddress]
+        public string RecoveryEmail { get; set; } = string.Empty;
     }
 
     public class LoginRequest
@@ -110,5 +153,22 @@ namespace CampusPulse.API.Controllers
 
         [Required]
         public string Password { get; set; } = string.Empty;
+    }
+
+    public class ForgotPasswordRequest
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+    }
+
+    public class ResetPasswordRequest
+    {
+        [Required]
+        public string Token { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100, MinimumLength = 8)]
+        public string NewPassword { get; set; } = string.Empty;
     }
 }
