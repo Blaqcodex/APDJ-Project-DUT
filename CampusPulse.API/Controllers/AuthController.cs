@@ -11,13 +11,16 @@ namespace CampusPulse.API.Controllers
     {
         private readonly IRegistrationService _registrationService;
         private readonly IAuthenticationService _authenticationService;
+        private readonly IJwtTokenService _jwtTokenService;
 
         public AuthController(
             IRegistrationService registrationService,
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService,
+            IJwtTokenService jwtTokenService)
         {
             _registrationService = registrationService;
             _authenticationService = authenticationService;
+            _jwtTokenService = jwtTokenService;
         }
 
         [HttpPost("register")]
@@ -61,9 +64,12 @@ namespace CampusPulse.API.Controllers
                 });
             }
 
+            string token = _jwtTokenService.GenerateToken(user);
+
             return Ok(new
             {
                 message = "Login successful.",
+                token = token,
                 userId = user.UserId,
                 firstName = user.FirstName,
                 lastName = user.LastName,
