@@ -4,162 +4,308 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CampusPulse.Student.MainPage"
-    BackgroundColor="#F4F7FB">
+    BackgroundColor="#171735"
+    Shell.NavBarIsVisible="False">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,50"
-            Spacing="0"
-            VerticalOptions="Center">
+    <ContentPage.Resources>
+        <LinearGradientBrush
+            x:Key="CampusBackground"
+            StartPoint="0,0"
+            EndPoint="1,1">
 
-            <!-- Logo / App Name -->
+            <GradientStop Color="#171735" Offset="0.0" />
+            <GradientStop Color="#30205B" Offset="0.45" />
+            <GradientStop Color="#60337D" Offset="0.78" />
+            <GradientStop Color="#B65D74" Offset="1.0" />
+
+        </LinearGradientBrush>
+
+        <LinearGradientBrush
+            x:Key="SunsetGradient"
+            StartPoint="0,0"
+            EndPoint="1,0">
+
+            <GradientStop Color="#FFAA43" Offset="0.0" />
+            <GradientStop Color="#FF784F" Offset="0.5" />
+            <GradientStop Color="#D65AC2" Offset="1.0" />
+
+        </LinearGradientBrush>
+    </ContentPage.Resources>
+
+    <Grid Background="{StaticResource CampusBackground}">
+
+        <!-- Decorative background glows -->
+        <Border
+            WidthRequest="220"
+            HeightRequest="220"
+            BackgroundColor="#704AEE"
+            Opacity="0.24"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 110"
+            HorizontalOptions="End"
+            VerticalOptions="Start"
+            TranslationX="90"
+            TranslationY="-75" />
+
+        <Border
+            WidthRequest="155"
+            HeightRequest="155"
+            BackgroundColor="#FF9955"
+            Opacity="0.18"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 80"
+            HorizontalOptions="Start"
+            VerticalOptions="Center"
+            TranslationX="-95" />
+
+        <Border
+            WidthRequest="115"
+            HeightRequest="115"
+            BackgroundColor="#42D4E4"
+            Opacity="0.13"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 60"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            TranslationX="50"
+            TranslationY="20" />
+
+        <ScrollView>
             <VerticalStackLayout
-                Spacing="6"
-                Margin="0,0,0,35">
+                Padding="26,52,26,35"
+                Spacing="0"
+                VerticalOptions="Center">
 
-                <Label
-                    Text="CampusPulse"
-                    FontSize="34"
-                    FontAttributes="Bold"
-                    TextColor="#172554"
-                    HorizontalOptions="Center" />
+                <!-- Brand icon -->
+                <Border
+                    WidthRequest="76"
+                    HeightRequest="76"
+                    Background="{StaticResource SunsetGradient}"
+                    Stroke="#66FFFFFF"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 24"
+                    HorizontalOptions="Center">
 
-                <Label
-                    Text="Your campus. Your classes. Your attendance."
-                    FontSize="14"
-                    TextColor="#64748B"
-                    HorizontalTextAlignment="Center" />
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="#FF874E"
+                            Offset="0,5"
+                            Radius="20"
+                            Opacity="0.45" />
+                    </Border.Shadow>
 
-            </VerticalStackLayout>
-
-            <!-- Login Card -->
-            <Border
-                BackgroundColor="White"
-                StrokeThickness="0"
-                Padding="24"
-                StrokeShape="RoundRectangle 20">
-
-                <Border.Shadow>
-                    <Shadow
-                        Brush="#20000000"
-                        Offset="0,6"
-                        Radius="18"
-                        Opacity="0.15" />
-                </Border.Shadow>
-
-                <VerticalStackLayout Spacing="18">
-
-                    <VerticalStackLayout Spacing="4">
-                        <Label
-                            Text="Welcome back"
-                            FontSize="24"
-                            FontAttributes="Bold"
-                            TextColor="#172554" />
-
-                        <Label
-                            Text="Sign in to your student account"
-                            FontSize="14"
-                            TextColor="#64748B" />
-                    </VerticalStackLayout>
-
-                    <!-- Email -->
-                    <VerticalStackLayout Spacing="7">
-                        <Label
-                            Text="Student Email"
-                            FontSize="13"
-                            FontAttributes="Bold"
-                            TextColor="#334155" />
-
-                        <Border
-                            BackgroundColor="#F8FAFC"
-                            Stroke="#E2E8F0"
-                            StrokeThickness="1"
-                            Padding="14,0"
-                            StrokeShape="RoundRectangle 12">
-
-                            <Entry
-                                Placeholder="Enter your student email"
-                                Keyboard="Email"
-                                FontSize="15"
-                                TextColor="#0F172A"
-                                PlaceholderColor="#94A3B8"
-                                BackgroundColor="Transparent" />
-
-                        </Border>
-                    </VerticalStackLayout>
-
-                    <!-- Password -->
-                    <VerticalStackLayout Spacing="7">
-                        <Label
-                            Text="Password"
-                            FontSize="13"
-                            FontAttributes="Bold"
-                            TextColor="#334155" />
-
-                        <Border
-                            BackgroundColor="#F8FAFC"
-                            Stroke="#E2E8F0"
-                            StrokeThickness="1"
-                            Padding="14,0"
-                            StrokeShape="RoundRectangle 12">
-
-                            <Entry
-                                Placeholder="Enter your password"
-                                IsPassword="True"
-                                FontSize="15"
-                                TextColor="#0F172A"
-                                PlaceholderColor="#94A3B8"
-                                BackgroundColor="Transparent" />
-
-                        </Border>
-                    </VerticalStackLayout>
-
-                    <!-- Login Button -->
-                    <Button
-                        Text="Sign In"
-                        HeightRequest="52"
-                        CornerRadius="14"
-                        FontSize="16"
-                        FontAttributes="Bold"
+                    <Label
+                        Text="✦"
+                        FontSize="46"
                         TextColor="White"
-                        BackgroundColor="#6B2FE8"
-                        Margin="0,8,0,0" />
-
-                    <!-- Register -->
-                    <HorizontalStackLayout
                         HorizontalOptions="Center"
-                        Spacing="4">
+                        VerticalOptions="Center" />
 
-                        <Label
-                            Text="Don't have an account?"
-                            FontSize="13"
-                            TextColor="#64748B"
-                            VerticalOptions="Center" />
+                </Border>
 
-                        <Button
-                            Text="Create one"
-                            FontSize="13"
-                            FontAttributes="Bold"
-                            TextColor="#1D4ED8"
-                            BackgroundColor="Transparent"
-                            Padding="0"
-                            HeightRequest="30" />
+                <!-- App branding -->
+                <VerticalStackLayout
+                    Spacing="9"
+                    Margin="0,20,0,35">
 
-                    </HorizontalStackLayout>
+                    <Label
+                        Text="CampusPulse"
+                        FontSize="38"
+                        FontAttributes="Bold"
+                        TextColor="#FFFFFF"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="YOUR CAMPUS, CONNECTED"
+                        FontSize="11"
+                        FontAttributes="Bold"
+                        CharacterSpacing="2.5"
+                        TextColor="#55E0ED"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Your classes. Your attendance. Your journey."
+                        FontSize="13"
+                        TextColor="#D9D2F2"
+                        HorizontalTextAlignment="Center"
+                        Margin="0,3,0,0" />
 
                 </VerticalStackLayout>
 
-            </Border>
+                <!-- Login card -->
+                <Border
+                    BackgroundColor="#F9F7FF"
+                    Stroke="#55FFFFFF"
+                    StrokeThickness="1"
+                    Padding="24,28"
+                    StrokeShape="RoundRectangle 28">
 
-            <!-- Footer -->
-            <Label
-                Text="CampusPulse • Student Portal"
-                FontSize="12"
-                TextColor="#94A3B8"
-                HorizontalOptions="Center"
-                Margin="0,30,0,0" />
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="#09071F"
+                            Offset="0,12"
+                            Radius="28"
+                            Opacity="0.4" />
+                    </Border.Shadow>
 
-        </VerticalStackLayout>
-    </ScrollView>
+                    <VerticalStackLayout Spacing="20">
+
+                        <!-- Welcome -->
+                        <VerticalStackLayout Spacing="6">
+
+                            <Label
+                                Text="Welcome back!"
+                                FontSize="27"
+                                FontAttributes="Bold"
+                                TextColor="#241A49" />
+
+                            <Label
+                                Text="Sign in to your student portal"
+                                FontSize="14"
+                                TextColor="#827995" />
+
+                        </VerticalStackLayout>
+
+                        <!-- Email -->
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label
+                                Text="Student Email"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="#42365E" />
+
+                            <Border
+                                BackgroundColor="#FFFFFF"
+                                Stroke="#E4DDF3"
+                                StrokeThickness="1"
+                                Padding="14,2"
+                                StrokeShape="RoundRectangle 14">
+
+                                <Entry
+                                    x:Name="EmailEntry"
+                                    Placeholder="name@dut4life.ac.za"
+                                    Keyboard="Email"
+                                    FontSize="14"
+                                    TextColor="#241A49"
+                                    PlaceholderColor="#A49AB8"
+                                    BackgroundColor="Transparent"
+                                    ClearButtonVisibility="WhileEditing"
+                                    ReturnType="Next" />
+
+                            </Border>
+
+                        </VerticalStackLayout>
+
+                        <!-- Password -->
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label
+                                Text="Password"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="#42365E" />
+
+                            <Border
+                                BackgroundColor="#FFFFFF"
+                                Stroke="#E4DDF3"
+                                StrokeThickness="1"
+                                Padding="14,2"
+                                StrokeShape="RoundRectangle 14">
+
+                                <Entry
+                                    x:Name="PasswordEntry"
+                                    Placeholder="Enter your password"
+                                    IsPassword="True"
+                                    FontSize="14"
+                                    TextColor="#241A49"
+                                    PlaceholderColor="#A49AB8"
+                                    BackgroundColor="Transparent"
+                                    ReturnType="Done" />
+
+                            </Border>
+
+                        </VerticalStackLayout>
+
+                        <!-- Sign in button -->
+                        <Border
+                            Background="{StaticResource SunsetGradient}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 15"
+                            HeightRequest="54"
+                            Margin="0,5,0,0">
+
+                            <Border.Shadow>
+                                <Shadow
+                                    Brush="#F77970"
+                                    Offset="0,5"
+                                    Radius="12"
+                                    Opacity="0.3" />
+                            </Border.Shadow>
+
+                            <Grid>
+                                <Button
+                                    Text="Sign In  →"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
+                                    BackgroundColor="Transparent"
+                                    CornerRadius="15"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill" />
+                            </Grid>
+
+                        </Border>
+
+                        <!-- Registration -->
+                        <HorizontalStackLayout
+                            HorizontalOptions="Center"
+                            Spacing="5">
+
+                            <Label
+                                Text="New to CampusPulse?"
+                                FontSize="13"
+                                TextColor="#827995"
+                                VerticalOptions="Center" />
+
+                            <Button
+                                Text="Create account"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="#793FD2"
+                                BackgroundColor="Transparent"
+                                Padding="0"
+                                HeightRequest="34" />
+
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <!-- Footer -->
+                <VerticalStackLayout
+                    Spacing="9"
+                    Margin="0,32,0,0">
+
+                    <Label
+                        Text="  MADE FOR CAMPUS LIFE  "
+                        FontSize="10"
+                        CharacterSpacing="1.5"
+                        TextColor="#7EE1EB"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="CampusPulse  •  Student Portal"
+                        FontSize="12"
+                        TextColor="#D0C6E9"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
 
 </ContentPage>
