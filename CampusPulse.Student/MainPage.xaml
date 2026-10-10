@@ -245,7 +245,9 @@
 
                             <Grid>
                                 <Button
+                                    x:Name="SignInButton"
                                     Text="Sign In  →"
+                                    Clicked="OnSignInClicked"
                                     FontSize="16"
                                     FontAttributes="Bold"
                                     TextColor="White"

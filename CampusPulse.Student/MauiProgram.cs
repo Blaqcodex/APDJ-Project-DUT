@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿
+using CampusPulse.Student.Services;
+using Microsoft.Extensions.Logging;
 
 namespace CampusPulse.Student;
 
@@ -16,7 +18,26 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        // Register the student login screen.
         builder.Services.AddTransient<MainPage>();
+
+        // Register the authentication API service.
+        builder.Services.AddHttpClient<
+            IAuthenticationApiService,
+            AuthenticationApiService>(client =>
+            {
+#if DEBUG
+                // Android emulator connects to the Windows host using 10.0.2.2.
+                client.BaseAddress = new Uri(
+                    "http://10.0.2.2:5240/");
+#else
+            // Replace with the deployed HTTPS API address before release.
+            client.BaseAddress = new Uri(
+                "https://api.example.com/");
+#endif
+
+                client.Timeout = TimeSpan.FromSeconds(15);
+            });
 
 #if DEBUG
         builder.Logging.AddDebug();
