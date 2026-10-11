@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 using CampusPulse.API.Services;
 using CampusPulse.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace CampusPulse.API.Controllers
 {
@@ -82,11 +84,13 @@ namespace CampusPulse.API.Controllers
         }
 
         [HttpPost("forgot-password")]
-        public IActionResult ForgotPassword(
+        [EnableRateLimiting("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(
             ForgotPasswordRequest request)
         {
-            // Recovery-email verification and delivery
-            // must be implemented before issuing usable reset tokens.
+            await _passwordResetService.SendResetEmailAsync(
+                request.Email);
+
             return Ok(new
             {
                 message = "If this email is registered and verified, password reset instructions will be sent."
@@ -105,7 +109,7 @@ namespace CampusPulse.API.Controllers
             {
                 return BadRequest(new
                 {
-                    message = "This reset link is invalid or has expired."
+                    message = "This reset token is invalid or has expired."
                 });
             }
 

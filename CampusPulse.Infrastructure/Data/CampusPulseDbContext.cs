@@ -1,4 +1,5 @@
-﻿using CampusPulse.Domain.Entities;
+﻿
+using CampusPulse.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CampusPulse.Infrastructure.Data
@@ -12,6 +13,8 @@ namespace CampusPulse.Infrastructure.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
+        public DbSet<RecoveryEmailVerification> RecoveryEmailVerifications { get; set; }
+
         public DbSet<Student> Students { get; set; }
         public DbSet<Lecturer> Lecturers { get; set; }
         public DbSet<Institution> Institutions { get; set; }
@@ -44,6 +47,26 @@ namespace CampusPulse.Infrastructure.Data
             modelBuilder.Entity<PasswordResetToken>()
                 .HasIndex(token => token.TokenHash)
                 .IsUnique();
+
+            // Recovery Email Verification → User
+            modelBuilder.Entity<RecoveryEmailVerification>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(verification => verification.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<RecoveryEmailVerification>()
+                .Property(verification => verification.Email)
+                .IsRequired()
+                .HasMaxLength(256);
+
+            modelBuilder.Entity<RecoveryEmailVerification>()
+                .Property(verification => verification.CodeHash)
+                .IsRequired()
+                .HasMaxLength(128);
+
+            modelBuilder.Entity<RecoveryEmailVerification>()
+                .HasIndex(verification => verification.UserId);
 
             // DUT institution
             modelBuilder.Entity<Institution>().HasData(
@@ -88,7 +111,7 @@ namespace CampusPulse.Infrastructure.Data
             modelBuilder.Entity<StudentModule>()
                 .HasOne<Module>()
                 .WithMany()
-                .HasForeignKey(sm => sm.ModuleId);
+                .HasForeignKey(t => t.ModuleId);
 
             // Module → Timetable
             modelBuilder.Entity<Timetable>()

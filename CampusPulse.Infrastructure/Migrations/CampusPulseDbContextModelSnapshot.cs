@@ -269,6 +269,46 @@ namespace CampusPulse.Infrastructure.Migrations
                     b.ToTable("Programmes");
                 });
 
+            modelBuilder.Entity("CampusPulse.Domain.Entities.RecoveryEmailVerification", b =>
+                {
+                    b.Property<int>("RecoveryEmailVerificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecoveryEmailVerificationId"));
+
+                    b.Property<string>("CodeHash")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime>("ExpiresAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FailedAttempts")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecoveryEmailVerificationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RecoveryEmailVerifications");
+                });
+
             modelBuilder.Entity("CampusPulse.Domain.Entities.Student", b =>
                 {
                     b.Property<int>("StudentId")
@@ -470,6 +510,15 @@ namespace CampusPulse.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("CampusPulse.Domain.Entities.PasswordResetToken", b =>
+                {
+                    b.HasOne("CampusPulse.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CampusPulse.Domain.Entities.RecoveryEmailVerification", b =>
                 {
                     b.HasOne("CampusPulse.Domain.Entities.User", null)
                         .WithMany()

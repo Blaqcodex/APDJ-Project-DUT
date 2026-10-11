@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿
+using System.Security.Cryptography;
 using System.Text;
 using CampusPulse.Application.Interfaces;
 using CampusPulse.Infrastructure.Data;
@@ -11,39 +12,45 @@ namespace CampusPulse.API.Services
     {
         private readonly CampusPulseDbContext _dbContext;
         private readonly IPasswordService _passwordService;
+        private readonly BrevoEmailService _emailService;
 
         public PasswordResetService(
             CampusPulseDbContext dbContext,
-            IPasswordService passwordService)
+            IPasswordService passwordService,
+            BrevoEmailService emailService)
         {
             _dbContext = dbContext;
             _passwordService = passwordService;
+            _emailService = emailService;
         }
 
-        public async Task<string?> CreateResetTokenAsync(string email)
+        public async Task<bool> SendResetEmailAsync(string email)
         {
             string normalizedEmail = email.Trim().ToLowerInvariant();
 
             var user = await _dbContext.Users
-                .FirstOrDefaultAsync(u => u.Email == normalizedEmail);
+                .FirstOrDefaultAsync(u =>
+                    u.Email == normalizedEmail &&
+                    u.RecoveryEmailVerified &&
+                    u.RecoveryEmail != null &&
+                    u.RecoveryEmail != "");
 
             if (user == null)
             {
-                return null;
+                return false;
             }
 
-            // Generate a cryptographically secure random token.
             string token = Convert.ToHexString(
                 RandomNumberGenerator.GetBytes(32));
 
             string tokenHash = HashToken(token);
-
-            // Invalidate previous unused reset tokens.
-            var previousTokens = await _dbContext.PasswordResetTokens
-                .Where(t => t.UserId == user.UserId && t.UsedAt == null)
-                .ToListAsync();
-
             DateTime now = DateTime.UtcNow;
+
+            var previousTokens = await _dbContext.PasswordResetTokens
+                .Where(t =>
+                    t.UserId == user.UserId &&
+                    t.UsedAt == null)
+                .ToListAsync();
 
             foreach (var previousToken in previousTokens)
             {
@@ -59,18 +66,37 @@ namespace CampusPulse.API.Services
             };
 
             _dbContext.PasswordResetTokens.Add(resetToken);
-
             await _dbContext.SaveChangesAsync();
 
-            return token;
+            string message =
+                "Hello " + user.FirstName + "," +
+                "\n\nWe received a request to reset your CampusPulse password." +
+                "\n\nYour password reset token is:" +
+                "\n\n" + token +
+                "\n\nThis token expires in 15 minutes." +
+                "\n\nOpen CampusPulse and enter this token on the Reset Password screen." +
+                "\n\nIf you did not request this, ignore this email." +
+                "\n\nCampusPulse Team";
+
+            await _emailService.SendEmailAsync(
+                user.RecoveryEmail!,
+                "CampusPulse - Password Reset",
+                message);
+
+            return true;
         }
 
         public async Task<bool> ResetPasswordAsync(
             string token,
             string newPassword)
         {
-            string tokenHash = HashToken(token);
+            if (string.IsNullOrWhiteSpace(token) ||
+                string.IsNullOrWhiteSpace(newPassword))
+            {
+                return false;
+            }
 
+            string tokenHash = HashToken(token);
             DateTime now = DateTime.UtcNow;
 
             var resetToken = await _dbContext.PasswordResetTokens
@@ -86,7 +112,8 @@ namespace CampusPulse.API.Services
 
             var user = await _dbContext.Users
                 .FirstOrDefaultAsync(u =>
-                    u.UserId == resetToken.UserId);
+                    u.UserId == resetToken.UserId &&
+                    u.RecoveryEmailVerified);
 
             if (user == null)
             {
@@ -98,7 +125,6 @@ namespace CampusPulse.API.Services
 
             resetToken.UsedAt = now;
 
-            // Invalidate all other unused reset tokens for this user.
             var otherTokens = await _dbContext.PasswordResetTokens
                 .Where(t =>
                     t.UserId == user.UserId &&

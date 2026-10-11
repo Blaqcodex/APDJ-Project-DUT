@@ -49,6 +49,7 @@
     <Compile Include="Entities\Module.cs" />
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\PasswordResetToken.cs" />
+    <Compile Include="Entities\RecoveryEmailVerification.cs" />
     <Compile Include="Entities\Programme.cs" />
     <Compile Include="Entities\Student.cs" />
     <Compile Include="Entities\StudentModule.cs" />
