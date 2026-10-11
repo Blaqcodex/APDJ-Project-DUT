@@ -14,5 +14,14 @@ public partial class StudentDashboardPage : ContentPage
         await Shell.Current.GoToAsync(
             nameof(StudentTimetablePage));
     }
+
+    private async void OnAttendanceTapped(
+        object? sender,
+        TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(
+            nameof(StudentAttendancePage));
+    }
 }
+
 
