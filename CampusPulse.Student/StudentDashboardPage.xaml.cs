@@ -22,6 +22,15 @@ public partial class StudentDashboardPage : ContentPage
         await Shell.Current.GoToAsync(
             nameof(StudentAttendancePage));
     }
+
+    private async void OnScanQrTapped(
+        object? sender,
+        TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(
+            nameof(StudentQrScannerPage));
+    }
 }
+
 
 

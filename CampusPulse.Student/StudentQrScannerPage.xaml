@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+    x:Class="CampusPulse.Student.StudentQrScannerPage"
+    Title="Scan QR"
+    BackgroundColor="#101027">
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          Padding="20"
+          RowSpacing="20">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="8">
+            <Label Text="SCAN ATTENDANCE"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White" />
+
+            <Label Text="Point your camera at your lecturer's QR code."
+                   FontSize="14"
+                   TextColor="#B8B8D0" />
+        </VerticalStackLayout>
+
+        <Border Grid.Row="1"
+                BackgroundColor="#1D1D3B"
+                Stroke="#34345F"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 20">
+
+            <Grid>
+                <zxing:CameraBarcodeReaderView
+                    x:Name="CameraView"
+                    IsDetecting="False"
+                    BarcodesDetected="OnBarcodesDetected" />
+
+                <Border
+                    WidthRequest="240"
+                    HeightRequest="240"
+                    Stroke="#69E5E3"
+                    StrokeThickness="3"
+                    BackgroundColor="Transparent"
+                    StrokeShape="RoundRectangle 18"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    InputTransparent="True" />
+            </Grid>
+        </Border>
+
+        <VerticalStackLayout Grid.Row="2" Spacing="12">
+
+            <Label x:Name="StatusLabel"
+                   Text="Waiting for camera permission..."
+                   TextColor="#B8B8D0"
+                   FontSize="13"
+                   HorizontalTextAlignment="Center" />
+
+            <Button Text="Scan Again"
+                    BackgroundColor="#FF756B"
+                    TextColor="#101027"
+                    CornerRadius="14"
+                    Clicked="OnScanAgainClicked" />
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

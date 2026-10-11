@@ -1,4 +1,5 @@
-﻿
+﻿using ZXing.Net.Maui.Controls;
+
 using CampusPulse.Student.Services;
 using Microsoft.Extensions.Logging;
 
@@ -12,6 +13,7 @@ public static class MauiProgram
 
         builder
             .UseMauiApp<App>()
+            .UseBarcodeReader()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -68,3 +70,4 @@ public static class MauiProgram
         return builder.Build();
     }
 }
+

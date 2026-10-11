@@ -5,6 +5,7 @@ public partial class AppShell : Shell
     public AppShell()
     {
         InitializeComponent();
+        Routing.RegisterRoute(nameof(StudentQrScannerPage), typeof(StudentQrScannerPage));
 
         Routing.RegisterRoute(
             nameof(StudentDashboardPage),
@@ -23,3 +24,4 @@ public partial class AppShell : Shell
             typeof(StudentAttendancePage));
     }
 }
+

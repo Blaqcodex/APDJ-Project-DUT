@@ -151,6 +151,9 @@
                                 Padding="12"
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 18">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnScanQrTapped" />
+                                </Border.GestureRecognizers>
                                 <VerticalStackLayout Spacing="9">
                                     <Label Text="▦" FontSize="28"
                                            TextColor="#FF956B"
@@ -358,6 +361,7 @@
 
     </Grid>
 </ContentPage>
+
 
 
 
