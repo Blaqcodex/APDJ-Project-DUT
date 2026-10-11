@@ -1,5 +1,4 @@
-
-namespace CampusPulse.Student;
+﻿namespace CampusPulse.Student;
 
 public partial class StudentDashboardPage : ContentPage
 {
@@ -7,4 +6,13 @@ public partial class StudentDashboardPage : ContentPage
     {
         InitializeComponent();
     }
+
+    private async void OnTimetableTapped(
+        object? sender,
+        TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(
+            nameof(StudentTimetablePage));
+    }
 }
+

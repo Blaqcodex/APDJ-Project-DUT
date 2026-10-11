@@ -169,6 +169,10 @@
                                 Padding="12"
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 18">
+    <Border.GestureRecognizers>
+        <TapGestureRecognizer Tapped="OnTimetableTapped" />
+    </Border.GestureRecognizers>
+
                                 <VerticalStackLayout Spacing="9">
                                     <Label Text="📅" FontSize="26"
                                            HorizontalOptions="Center" />
@@ -222,7 +226,7 @@
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 18">
                                 <VerticalStackLayout Spacing="9">
-                                    <Label Text="▣" FontSize="28"
+                                    <Label Text="💳" FontSize="28"
                                            TextColor="#FFAD83"
                                            HorizontalOptions="Center" />
                                     <Label Text="Student Card"
@@ -330,7 +334,7 @@
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 20"
                         HorizontalOptions="Center">
-                    <Label Text="▦"
+                    <Label Text="📷"
                            FontSize="25"
                            TextColor="#101027" />
                 </Border>
@@ -341,7 +345,7 @@
                        HorizontalOptions="Center" />
 
                 <Label Grid.Column="4"
-                       Text="♙"
+                       Text="👤"
                        FontSize="27"
                        TextColor="#B5B4D0"
                        HorizontalOptions="Center" />
@@ -351,3 +355,5 @@
 
     </Grid>
 </ContentPage>
+
+
