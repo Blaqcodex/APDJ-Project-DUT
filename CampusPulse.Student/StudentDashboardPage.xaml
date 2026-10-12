@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -242,6 +242,29 @@
                                 </VerticalStackLayout>
                             </Border>
 
+                            <Border
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                BackgroundColor="#234859"
+                                Padding="12"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnVerifyEmailTapped" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="9">
+                                    <Label
+                                        Text="✉"
+                                        FontSize="28"
+                                        TextColor="#69E5E3"
+                                        HorizontalOptions="Center" />
+                                    <Label
+                                        Text="Verify Email"
+                                        FontSize="12"
+                                        TextColor="White"
+                                        HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
                         </Grid>
                     </VerticalStackLayout>
 
@@ -332,7 +355,11 @@
                 <Label Grid.Column="1"
                        Text="📅"
                        FontSize="23"
-                       HorizontalOptions="Center" />
+                       HorizontalOptions="Center">
+    <Label.GestureRecognizers>
+        <TapGestureRecognizer Tapped="OnTimetableTapped" />
+    </Label.GestureRecognizers>
+</Label>
 
                 <Border Grid.Column="2"
                         BackgroundColor="#FF956B"
@@ -340,6 +367,9 @@
                         StrokeThickness="0"
                         StrokeShape="RoundRectangle 20"
                         HorizontalOptions="Center">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnScanQrTapped" />
+                    </Border.GestureRecognizers>
                     <Label Text="📷"
                            FontSize="25"
                            TextColor="#101027" />
@@ -361,6 +391,7 @@
 
     </Grid>
 </ContentPage>
+
 
 
 

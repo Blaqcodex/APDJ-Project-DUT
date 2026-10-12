@@ -30,7 +30,16 @@ public partial class StudentDashboardPage : ContentPage
         await Shell.Current.GoToAsync(
             nameof(StudentQrScannerPage));
     }
+
+    private async void OnVerifyEmailTapped(
+        object? sender,
+        TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(
+            nameof(VerifyRecoveryEmailPage));
+    }
 }
+
 
 
 
