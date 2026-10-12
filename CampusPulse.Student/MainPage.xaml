@@ -214,6 +214,18 @@
 
                         </VerticalStackLayout>
 
+                        <!-- Forgot Password -->
+                        <Button
+                            Text="Forgot password?"
+                            Clicked="OnForgotPasswordClicked"
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="#F77970"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="End"
+                            Padding="0,4"
+                            Margin="0,-4,0,0" />
+
                         <!-- Sign in button -->
                         <Border
                             Background="{StaticResource SunsetGradient}"

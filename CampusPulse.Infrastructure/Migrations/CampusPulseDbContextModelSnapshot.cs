@@ -229,6 +229,9 @@ namespace CampusPulse.Infrastructure.Migrations
                     b.Property<DateTime>("ExpiresAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("FailedAttempts")
+                        .HasColumnType("int");
+
                     b.Property<string>("TokenHash")
                         .IsRequired()
                         .HasMaxLength(450)

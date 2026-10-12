@@ -5,6 +5,17 @@ public partial class AppShell : Shell
     public AppShell()
     {
         InitializeComponent();
+        Routing.RegisterRoute(
+            nameof(VerifyRecoveryEmailPage),
+            typeof(VerifyRecoveryEmailPage));
+
+        Routing.RegisterRoute(
+            nameof(ResetPasswordPage),
+            typeof(ResetPasswordPage));
+
+        Routing.RegisterRoute(
+            nameof(ForgotPasswordPage),
+            typeof(ForgotPasswordPage));
         Routing.RegisterRoute(nameof(StudentQrScannerPage), typeof(StudentQrScannerPage));
 
         Routing.RegisterRoute(
@@ -24,4 +35,3 @@ public partial class AppShell : Shell
             typeof(StudentAttendancePage));
     }
 }
-

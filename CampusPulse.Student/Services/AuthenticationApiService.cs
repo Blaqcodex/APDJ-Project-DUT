@@ -14,6 +14,136 @@ namespace CampusPulse.Student.Services
             this.httpClient = httpClient;
         }
 
+        public async Task<PasswordRecoveryResult> ForgotPasswordAsync(
+            string email)
+        {
+            const string confirmationMessage =
+                "If this email is registered and verified, password reset instructions will be sent.";
+
+            try
+            {
+                var request = new
+                {
+                    Email = email.Trim()
+                };
+
+                using HttpResponseMessage response =
+                    await httpClient.PostAsJsonAsync(
+                        "api/Auth/forgot-password",
+                        request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return new PasswordRecoveryResult
+                    {
+                        Success = true,
+                        Message = confirmationMessage
+                    };
+                }
+
+                if (response.StatusCode ==
+                    (HttpStatusCode)429)
+                {
+                    return new PasswordRecoveryResult
+                    {
+                        Success = false,
+                        Message = "Too many requests. Please try again later."
+                    };
+                }
+
+                return new PasswordRecoveryResult
+                {
+                    Success = false,
+                    Message = "Unable to process your request. Please try again."
+                };
+            }
+            catch (HttpRequestException)
+            {
+                return new PasswordRecoveryResult
+                {
+                    Success = false,
+                    Message = "Cannot connect to CampusPulse. Check your connection."
+                };
+            }
+            catch (TaskCanceledException)
+            {
+                return new PasswordRecoveryResult
+                {
+                    Success = false,
+                    Message = "The connection timed out. Please try again."
+                };
+            }
+        }
+
+        public async Task<PasswordRecoveryResult> ResetPasswordAsync(
+            string email,
+            string token,
+            string newPassword)
+        {
+            try
+            {
+                var request = new
+                {
+                    Email = email.Trim(),
+                    Token = token.Trim(),
+                    NewPassword = newPassword
+                };
+
+                using HttpResponseMessage response =
+                    await httpClient.PostAsJsonAsync(
+                        "api/Auth/reset-password",
+                        request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return new PasswordRecoveryResult
+                    {
+                        Success = true,
+                        Message = "Password updated successfully. You can now log in."
+                    };
+                }
+
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    return new PasswordRecoveryResult
+                    {
+                        Success = false,
+                        Message = "Invalid or expired reset code. Please request a new code."
+                    };
+                }
+
+                if (response.StatusCode == (HttpStatusCode)429)
+                {
+                    return new PasswordRecoveryResult
+                    {
+                        Success = false,
+                        Message = "Too many attempts. Please try again later."
+                    };
+                }
+
+                return new PasswordRecoveryResult
+                {
+                    Success = false,
+                    Message = "Unable to reset your password. Please try again."
+                };
+            }
+            catch (HttpRequestException)
+            {
+                return new PasswordRecoveryResult
+                {
+                    Success = false,
+                    Message = "Cannot connect to CampusPulse. Check your connection."
+                };
+            }
+            catch (TaskCanceledException)
+            {
+                return new PasswordRecoveryResult
+                {
+                    Success = false,
+                    Message = "The connection timed out. Please try again."
+                };
+            }
+        }
         public async Task<LoginResult> LoginAsync(
             string email,
             string password)

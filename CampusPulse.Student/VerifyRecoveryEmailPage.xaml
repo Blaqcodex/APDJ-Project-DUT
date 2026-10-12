@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CampusPulse.Student.VerifyRecoveryEmailPage"
+    BackgroundColor="#101027"
+    Title="Verify Recovery Email">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="25,45"
+            Spacing="20">
+
+            <Label
+                Text="SECURE YOUR ACCOUNT"
+                FontSize="13"
+                FontAttributes="Bold"
+                CharacterSpacing="2"
+                TextColor="#69E5E3" />
+
+            <Label
+                Text="Verify Recovery Email"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <Label
+                Text="We'll send a six-digit verification code to the personal recovery email you registered with CampusPulse."
+                FontSize="14"
+                TextColor="#C8C5DE" />
+
+            <Button
+                x:Name="SendCodeButton"
+                Text="Send Verification Code"
+                Clicked="OnSendCodeClicked"
+                BackgroundColor="#FF756B"
+                TextColor="#101027"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="54" />
+
+            <Label
+                Text="ENTER VERIFICATION CODE"
+                FontSize="12"
+                FontAttributes="Bold"
+                TextColor="#69E5E3" />
+
+            <Entry
+                x:Name="VerificationCodeEntry"
+                Placeholder="6-digit code"
+                PlaceholderColor="#8F8BA9"
+                TextColor="White"
+                Keyboard="Numeric"
+                MaxLength="6"
+                BackgroundColor="#242342" />
+
+            <Button
+                x:Name="VerifyCodeButton"
+                Text="Verify Code"
+                Clicked="OnVerifyCodeClicked"
+                BackgroundColor="#69E5E3"
+                TextColor="#101027"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="54" />
+
+            <Label
+                x:Name="StatusLabel"
+                TextColor="#E2D7EE"
+                FontSize="13"
+                IsVisible="False" />
+
+            <Label
+                Text="Codes expire after 10 minutes. Wait at least 60 seconds before requesting another code."
+                FontSize="12"
+                TextColor="#A8A4C5" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

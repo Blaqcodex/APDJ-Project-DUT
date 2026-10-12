@@ -112,6 +112,36 @@ namespace CampusPulse.Student
             }
         }
 
+        private async void OnForgotPasswordClicked(
+            object? sender,
+            EventArgs e)
+        {
+            string email = EmailEntry.Text?.Trim() ?? "";
+
+            if (string.IsNullOrWhiteSpace(email) ||
+                !email.EndsWith("@dut4life.ac.za",
+                    StringComparison.OrdinalIgnoreCase) ||
+                !System.Net.Mail.MailAddress.TryCreate(
+                    email, out var address) ||
+                !string.Equals(address.Address, email,
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                await DisplayAlertAsync(
+                    "DUT Email Required",
+                    "Enter your registered DUT email address before selecting Forgot password.",
+                    "OK");
+
+                return;
+            }
+
+            await Shell.Current.GoToAsync(
+                nameof(ForgotPasswordPage),
+                new Dictionary<string, object>
+                {
+                    ["DutEmail"] = email
+                });
+        }
+
         private async void OnCreateAccountClicked(
             object? sender,
             EventArgs e)

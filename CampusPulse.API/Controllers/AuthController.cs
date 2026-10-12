@@ -98,10 +98,12 @@ namespace CampusPulse.API.Controllers
         }
 
         [HttpPost("reset-password")]
+        [EnableRateLimiting("forgot-password")]
         public async Task<IActionResult> ResetPassword(
             ResetPasswordRequest request)
         {
             bool success = await _passwordResetService.ResetPasswordAsync(
+                request.Email,
                 request.Token,
                 request.NewPassword);
 
@@ -169,6 +171,11 @@ namespace CampusPulse.API.Controllers
     public class ResetPasswordRequest
     {
         [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [RegularExpression(@"^[0-9]{6}$", ErrorMessage = "Reset code must contain exactly six digits.")]
         public string Token { get; set; } = string.Empty;
 
         [Required]

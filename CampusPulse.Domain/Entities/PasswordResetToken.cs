@@ -14,6 +14,8 @@ namespace CampusPulse.Domain.Entities
 
         public DateTime? UsedAt { get; set; }
 
+        public int FailedAttempts { get; set; } = 0;
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

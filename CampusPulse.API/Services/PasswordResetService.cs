@@ -1,32 +1,59 @@
-﻿
+﻿using System.Data;
 using System.Security.Cryptography;
 using System.Text;
 using CampusPulse.Application.Interfaces;
-using CampusPulse.Infrastructure.Data;
 using CampusPulse.Domain.Entities;
+using CampusPulse.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace CampusPulse.API.Services
 {
     public class PasswordResetService
     {
+        private const int CodeLifetimeMinutes = 10;
+        private const int MaximumAttempts = 5;
+        private const int ResendCooldownSeconds = 60;
+
         private readonly CampusPulseDbContext _dbContext;
         private readonly IPasswordService _passwordService;
         private readonly BrevoEmailService _emailService;
+        private readonly byte[] _hashKey;
 
         public PasswordResetService(
             CampusPulseDbContext dbContext,
             IPasswordService passwordService,
-            BrevoEmailService emailService)
+            BrevoEmailService emailService,
+            IConfiguration configuration)
         {
             _dbContext = dbContext;
             _passwordService = passwordService;
             _emailService = emailService;
+
+            string configuredKey = configuration["Verification:HashKey"]
+                ?? throw new InvalidOperationException(
+                    "Verification:HashKey is not configured.");
+
+            _hashKey = Convert.FromBase64String(configuredKey);
+
+            if (_hashKey.Length < 32)
+            {
+                throw new InvalidOperationException(
+                    "Verification:HashKey must contain at least 32 bytes.");
+            }
         }
 
         public async Task<bool> SendResetEmailAsync(string email)
         {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return false;
+            }
+
             string normalizedEmail = email.Trim().ToLowerInvariant();
+
+            await using var transaction =
+                await _dbContext.Database.BeginTransactionAsync(
+                    IsolationLevel.Serializable);
 
             var user = await _dbContext.Users
                 .FirstOrDefaultAsync(u =>
@@ -37,19 +64,33 @@ namespace CampusPulse.API.Services
 
             if (user == null)
             {
+                await transaction.CommitAsync();
                 return false;
             }
 
-            string token = Convert.ToHexString(
-                RandomNumberGenerator.GetBytes(32));
-
-            string tokenHash = HashToken(token);
             DateTime now = DateTime.UtcNow;
 
+            var latestToken = await _dbContext.PasswordResetTokens
+                .Where(t => t.UserId == user.UserId)
+                .OrderByDescending(t => t.CreatedAt)
+                .ThenByDescending(t => t.PasswordResetTokenId)
+                .FirstOrDefaultAsync();
+
+            if (latestToken != null &&
+                latestToken.CreatedAt > now.AddSeconds(-ResendCooldownSeconds))
+            {
+                await transaction.CommitAsync();
+                return false;
+            }
+
+            string code = RandomNumberGenerator
+                .GetInt32(0, 1000000)
+                .ToString("D6");
+
+            string codeHash = HashCode(user.UserId, normalizedEmail, code);
+
             var previousTokens = await _dbContext.PasswordResetTokens
-                .Where(t =>
-                    t.UserId == user.UserId &&
-                    t.UsedAt == null)
+                .Where(t => t.UserId == user.UserId && t.UsedAt == null)
                 .ToListAsync();
 
             foreach (var previousToken in previousTokens)
@@ -60,63 +101,107 @@ namespace CampusPulse.API.Services
             var resetToken = new PasswordResetToken
             {
                 UserId = user.UserId,
-                TokenHash = tokenHash,
+                TokenHash = codeHash,
                 CreatedAt = now,
-                ExpiresAt = now.AddMinutes(15)
+                ExpiresAt = now.AddMinutes(CodeLifetimeMinutes),
+                FailedAttempts = 0
             };
 
             _dbContext.PasswordResetTokens.Add(resetToken);
+
             await _dbContext.SaveChangesAsync();
+            await transaction.CommitAsync();
 
             string message =
                 "Hello " + user.FirstName + "," +
                 "\n\nWe received a request to reset your CampusPulse password." +
-                "\n\nYour password reset token is:" +
-                "\n\n" + token +
-                "\n\nThis token expires in 15 minutes." +
-                "\n\nOpen CampusPulse and enter this token on the Reset Password screen." +
+                "\n\nYour six-digit password reset code is:" +
+                "\n\n" + code +
+                "\n\nThis code expires in 10 minutes." +
+                "\n\nEnter this code in CampusPulse to reset your password." +
                 "\n\nIf you did not request this, ignore this email." +
                 "\n\nCampusPulse Team";
 
             await _emailService.SendEmailAsync(
                 user.RecoveryEmail!,
-                "CampusPulse - Password Reset",
+                "CampusPulse - Password Reset Code",
                 message);
 
             return true;
         }
 
         public async Task<bool> ResetPasswordAsync(
-            string token,
+            string email,
+            string code,
             string newPassword)
         {
-            if (string.IsNullOrWhiteSpace(token) ||
-                string.IsNullOrWhiteSpace(newPassword))
+            if (string.IsNullOrWhiteSpace(email) ||
+                string.IsNullOrWhiteSpace(code) ||
+                string.IsNullOrWhiteSpace(newPassword) ||
+                code.Length != 6 ||
+                !code.All(char.IsAsciiDigit))
             {
                 return false;
             }
 
-            string tokenHash = HashToken(token);
-            DateTime now = DateTime.UtcNow;
+            string normalizedEmail = email.Trim().ToLowerInvariant();
 
-            var resetToken = await _dbContext.PasswordResetTokens
-                .FirstOrDefaultAsync(t =>
-                    t.TokenHash == tokenHash &&
-                    t.UsedAt == null &&
-                    t.ExpiresAt > now);
-
-            if (resetToken == null)
-            {
-                return false;
-            }
+            await using var transaction =
+                await _dbContext.Database.BeginTransactionAsync(
+                    IsolationLevel.Serializable);
 
             var user = await _dbContext.Users
                 .FirstOrDefaultAsync(u =>
-                    u.UserId == resetToken.UserId &&
+                    u.Email == normalizedEmail &&
                     u.RecoveryEmailVerified);
 
             if (user == null)
             {
+                return false;
+            }
+
+            DateTime now = DateTime.UtcNow;
+
+            var resetToken = await _dbContext.PasswordResetTokens
+                .Where(t =>
+                    t.UserId == user.UserId &&
+                    t.UsedAt == null &&
+                    t.ExpiresAt > now)
+                .OrderByDescending(t => t.CreatedAt)
+                .ThenByDescending(t => t.PasswordResetTokenId)
+                .FirstOrDefaultAsync();
+
+            if (resetToken == null ||
+                resetToken.FailedAttempts >= MaximumAttempts)
+            {
+                return false;
+            }
+
+            string submittedHash = HashCode(
+                user.UserId,
+                normalizedEmail,
+                code);
+
+            byte[] expectedBytes =
+                Convert.FromHexString(resetToken.TokenHash);
+
+            byte[] submittedBytes =
+                Convert.FromHexString(submittedHash);
+
+            if (!CryptographicOperations.FixedTimeEquals(
+                expectedBytes,
+                submittedBytes))
+            {
+                resetToken.FailedAttempts++;
+
+                if (resetToken.FailedAttempts >= MaximumAttempts)
+                {
+                    resetToken.UsedAt = now;
+                }
+
+                await _dbContext.SaveChangesAsync();
+                await transaction.CommitAsync();
+
                 return false;
             }
 
@@ -138,16 +223,23 @@ namespace CampusPulse.API.Services
             }
 
             await _dbContext.SaveChangesAsync();
+            await transaction.CommitAsync();
 
             return true;
         }
 
-        private static string HashToken(string token)
+        private string HashCode(int userId, string email, string code)
         {
-            byte[] bytes = SHA256.HashData(
-                Encoding.UTF8.GetBytes(token));
+            string data =
+                "password-reset:" +
+                userId + ":" +
+                email.Trim().ToLowerInvariant() + ":" +
+                code;
 
-            return Convert.ToHexString(bytes);
+            using var hmac = new HMACSHA256(_hashKey);
+
+            return Convert.ToHexString(
+                hmac.ComputeHash(Encoding.UTF8.GetBytes(data)));
         }
     }
 }
