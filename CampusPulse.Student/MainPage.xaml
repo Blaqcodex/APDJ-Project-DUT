@@ -76,31 +76,18 @@
                 Spacing="0"
                 VerticalOptions="Center">
 
-                <!-- Brand icon -->
+                                <!-- CampusPulse logo -->
                 <Border
-                    WidthRequest="76"
-                    HeightRequest="76"
-                    Background="{StaticResource SunsetGradient}"
-                    Stroke="#66FFFFFF"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 24"
-                    HorizontalOptions="Center">
-
-                    <Border.Shadow>
-                        <Shadow
-                            Brush="#FF874E"
-                            Offset="0,5"
-                            Radius="20"
-                            Opacity="0.45" />
-                    </Border.Shadow>
-
-                    <Label
-                        Text="✦"
-                        FontSize="46"
-                        TextColor="White"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center" />
-
+                    BackgroundColor="#FFFFFF"
+                    StrokeThickness="0"
+                    Padding="12,8"
+                    WidthRequest="310"
+                    HorizontalOptions="Center"
+                    StrokeShape="RoundRectangle 20">
+                    <Image
+                        Source="campuspulse_logo.png"
+                        Aspect="AspectFit"
+                        HeightRequest="95" />
                 </Border>
 
                 <!-- App branding -->
