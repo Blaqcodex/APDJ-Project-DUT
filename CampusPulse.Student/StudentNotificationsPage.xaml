@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CampusPulse.Student.StudentNotificationsPage"
+    BackgroundColor="#101027"
+    Title="Notifications">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24,32" Spacing="24">
+
+            <VerticalStackLayout Spacing="8">
+                <Label
+                    Text="CAMPUS UPDATES"
+                    FontSize="13"
+                    CharacterSpacing="2"
+                    FontAttributes="Bold"
+                    TextColor="#FFAD83" />
+
+                <Label
+                    Text="Notifications"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    TextColor="White" />
+
+                <Label
+                    Text="Important announcements, class reminders and attendance updates."
+                    FontSize="14"
+                    TextColor="#B5B4D0" />
+            </VerticalStackLayout>
+
+            <Border
+                BackgroundColor="#242342"
+                Stroke="#38365C"
+                StrokeThickness="1"
+                Padding="24"
+                StrokeShape="RoundRectangle 20">
+
+                <VerticalStackLayout Spacing="14">
+
+                    <Label
+                        Text="&#x1F514;"
+                        FontSize="42"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="You're all caught up"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Your university announcements, class reminders and important alerts will appear here when available."
+                        FontSize="14"
+                        TextColor="#B5B4D0"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

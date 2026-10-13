@@ -1,4 +1,4 @@
-﻿
+
 using CampusPulse.Student.Services;
 
 namespace CampusPulse.Student
@@ -103,7 +103,7 @@ namespace CampusPulse.Student
                     "OK");
 
                 await Shell.Current.GoToAsync(
-                    nameof(StudentDashboardPage));
+                    "//StudentTabs/StudentHome");
             }
             finally
             {

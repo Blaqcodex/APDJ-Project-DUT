@@ -1,4 +1,4 @@
-﻿namespace CampusPulse.Student;
+namespace CampusPulse.Student;
 
 public partial class StudentDashboardPage : ContentPage
 {
@@ -12,7 +12,7 @@ public partial class StudentDashboardPage : ContentPage
         TappedEventArgs e)
     {
         await Shell.Current.GoToAsync(
-            nameof(StudentTimetablePage));
+            "//StudentTabs/StudentSchedule");
     }
 
     private async void OnAttendanceTapped(
@@ -28,7 +28,7 @@ public partial class StudentDashboardPage : ContentPage
         TappedEventArgs e)
     {
         await Shell.Current.GoToAsync(
-            nameof(StudentQrScannerPage));
+            "//StudentTabs/StudentScan");
     }
 
     private async void OnVerifyEmailTapped(
@@ -39,7 +39,3 @@ public partial class StudentDashboardPage : ContentPage
             nameof(VerifyRecoveryEmailPage));
     }
 }
-
-
-
-

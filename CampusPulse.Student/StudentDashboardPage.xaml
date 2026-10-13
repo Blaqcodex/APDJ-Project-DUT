@@ -41,7 +41,7 @@
                                     TextColor="#FFAD83" />
 
                                 <Label
-                                    Text="Welcome back! 👋"
+                                    Text="Welcome back!"
                                     FontSize="27"
                                     FontAttributes="Bold"
                                     TextColor="White" />
@@ -60,9 +60,7 @@
                                 VerticalOptions="Start"
                                 StrokeShape="RoundRectangle 18">
 
-                                <Label
-                                    Text="🔔"
-                                    FontSize="24" />
+                                <Image Source="icon_alerts.png" WidthRequest="28" HeightRequest="28" Aspect="AspectFit" />
                             </Border>
                         </Grid>
 
@@ -110,12 +108,7 @@
                                         StrokeThickness="5"
                                         StrokeShape="RoundRectangle 55">
 
-                                        <Label
-                                            Text="✓"
-                                            FontSize="36"
-                                            TextColor="#69E5E3"
-                                            HorizontalOptions="Center"
-                                            VerticalOptions="Center" />
+                                        <Image Source="icon_attendance.png" WidthRequest="44" HeightRequest="44" HorizontalOptions="Center" VerticalOptions="Center" />
                                     </Border>
                                 </Grid>
 
@@ -155,9 +148,7 @@
                                     <TapGestureRecognizer Tapped="OnScanQrTapped" />
                                 </Border.GestureRecognizers>
                                 <VerticalStackLayout Spacing="9">
-                                    <Label Text="▦" FontSize="28"
-                                           TextColor="#FF956B"
-                                           HorizontalOptions="Center" />
+                                    <Image Source="icon_scan.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Scan QR"
                                            FontSize="12"
                                            TextColor="White"
@@ -177,8 +168,7 @@
     </Border.GestureRecognizers>
 
                                 <VerticalStackLayout Spacing="9">
-                                    <Label Text="📅" FontSize="26"
-                                           HorizontalOptions="Center" />
+                                    <Image Source="icon_timetable.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Timetable"
                                            FontSize="12"
                                            TextColor="White"
@@ -197,9 +187,7 @@
                                     <TapGestureRecognizer Tapped="OnAttendanceTapped" />
                                 </Border.GestureRecognizers>
                                 <VerticalStackLayout Spacing="9">
-                                    <Label Text="✓" FontSize="28"
-                                           TextColor="#69E5E3"
-                                           HorizontalOptions="Center" />
+                                    <Image Source="icon_attendance.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Attendance"
                                            FontSize="12"
                                            TextColor="White"
@@ -215,8 +203,7 @@
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 18">
                                 <VerticalStackLayout Spacing="9">
-                                    <Label Text="📢" FontSize="26"
-                                           HorizontalOptions="Center" />
+                                    <Image Source="icon_alerts.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Notices"
                                            FontSize="12"
                                            TextColor="White"
@@ -232,9 +219,7 @@
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 18">
                                 <VerticalStackLayout Spacing="9">
-                                    <Label Text="💳" FontSize="28"
-                                           TextColor="#FFAD83"
-                                           HorizontalOptions="Center" />
+                                    <Image Source="icon_card.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Student Card"
                                            FontSize="12"
                                            TextColor="White"
@@ -253,11 +238,7 @@
                                     <TapGestureRecognizer Tapped="OnVerifyEmailTapped" />
                                 </Border.GestureRecognizers>
                                 <VerticalStackLayout Spacing="9">
-                                    <Label
-                                        Text="✉"
-                                        FontSize="28"
-                                        TextColor="#69E5E3"
-                                        HorizontalOptions="Center" />
+                                    <Image Source="icon_email.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label
                                         Text="Verify Email"
                                         FontSize="12"
@@ -336,63 +317,6 @@
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- BOTTOM NAVIGATION VISUAL FOUNDATION -->
-        <Border
-            Grid.Row="1"
-            BackgroundColor="#1B1936"
-            Stroke="#34305E"
-            StrokeThickness="1"
-            Padding="12,14">
-
-            <Grid ColumnDefinitions="*,*,*,*,*">
-
-                <Label Grid.Column="0"
-                       Text="⌂"
-                       FontSize="27"
-                       TextColor="#FF956B"
-                       HorizontalOptions="Center" />
-
-                <Label Grid.Column="1"
-                       Text="📅"
-                       FontSize="23"
-                       HorizontalOptions="Center">
-    <Label.GestureRecognizers>
-        <TapGestureRecognizer Tapped="OnTimetableTapped" />
-    </Label.GestureRecognizers>
-</Label>
-
-                <Border Grid.Column="2"
-                        BackgroundColor="#FF956B"
-                        Padding="12"
-                        StrokeThickness="0"
-                        StrokeShape="RoundRectangle 20"
-                        HorizontalOptions="Center">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnScanQrTapped" />
-                    </Border.GestureRecognizers>
-                    <Label Text="📷"
-                           FontSize="25"
-                           TextColor="#101027" />
-                </Border>
-
-                <Label Grid.Column="3"
-                       Text="🔔"
-                       FontSize="23"
-                       HorizontalOptions="Center" />
-
-                <Label Grid.Column="4"
-                       Text="👤"
-                       FontSize="27"
-                       TextColor="#B5B4D0"
-                       HorizontalOptions="Center" />
-
-            </Grid>
-        </Border>
 
     </Grid>
 </ContentPage>
-
-
-
-
-

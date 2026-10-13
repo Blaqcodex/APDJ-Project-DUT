@@ -4,11 +4,56 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CampusPulse.Student"
-    Title="CampusPulse.Student">
+    Title="CampusPulse"
+    Shell.BackgroundColor="#101027"
+    Shell.ForegroundColor="White"
+    Shell.TabBarBackgroundColor="#1B1936"
+    Shell.TabBarForegroundColor="#FFAD83"
+    Shell.TabBarUnselectedColor="#B5B4D0">
 
+    <!-- Authentication entry -->
     <ShellContent
-        Title="Home"
+        Title="Login"
+        Route="MainPage"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Shell.NavBarIsVisible="False" />
+
+    <!-- Student navigation -->
+    <TabBar
+        Route="StudentTabs"
+        FlyoutItemIsVisible="False"
+        Shell.BackgroundColor="#101027"
+        Shell.ForegroundColor="#FFFFFF"
+        Shell.TitleColor="#FFFFFF"
+        Shell.DisabledColor="#77738F"
+        Shell.TabBarBackgroundColor="#1B1936"
+        Shell.TabBarForegroundColor="#FFAD83"
+        Shell.TabBarTitleColor="#FFAD83"
+        Shell.TabBarUnselectedColor="#B5B4D0">
+        <ShellContent Icon="icon_home.png"
+            Title="Home"
+            Route="StudentHome"
+            ContentTemplate="{DataTemplate local:StudentDashboardPage}" />
+
+        <ShellContent Icon="icon_timetable.png"
+            Title="Timetable"
+            Route="StudentSchedule"
+            ContentTemplate="{DataTemplate local:StudentTimetablePage}" />
+
+        <ShellContent Icon="icon_scan.png"
+            Title="Scan QR"
+            Route="StudentScan"
+            ContentTemplate="{DataTemplate local:StudentQrScannerPage}" />
+
+        <ShellContent Icon="icon_alerts.png"
+            Title="Alerts"
+            Route="StudentAlerts"
+            ContentTemplate="{DataTemplate local:StudentNotificationsPage}" />
+
+        <ShellContent Icon="icon_profile.png"
+            Title="Profile"
+            Route="StudentProfile"
+            ContentTemplate="{DataTemplate local:StudentProfilePage}" />
+    </TabBar>
 
 </Shell>
