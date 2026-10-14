@@ -202,6 +202,9 @@
                                 Padding="12"
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 18">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnNoticesTapped" />
+                                </Border.GestureRecognizers>
                                 <VerticalStackLayout Spacing="9">
                                     <Image Source="icon_alerts.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Notices"
@@ -218,6 +221,9 @@
                                 Padding="12"
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 18">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnStudentCardTapped" />
+                                </Border.GestureRecognizers>
                                 <VerticalStackLayout Spacing="9">
                                     <Image Source="icon_card.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Student Card"

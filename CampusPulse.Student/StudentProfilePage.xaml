@@ -78,14 +78,22 @@
 
                     <Label Text="&#x1F4B3;   Digital Student Card"
                            FontSize="16"
-                           TextColor="White" />
+                           TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStudentCardTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
 
                     <BoxView HeightRequest="1"
                              Color="#38365C" />
 
                     <Label Text="&#x2699;   Settings"
                            FontSize="16"
-                           TextColor="White" />
+                           TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSettingsTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
 
                     <BoxView HeightRequest="1"
                              Color="#38365C" />

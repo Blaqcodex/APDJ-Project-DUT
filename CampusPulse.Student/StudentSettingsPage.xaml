@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CampusPulse.Student.StudentSettingsPage"
+    Title="Settings"
+    BackgroundColor="#101027">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="22">
+
+            <Label
+                Text="Settings"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <Label
+                Text="Manage your CampusPulse preferences."
+                FontSize="14"
+                TextColor="#B7B5CE" />
+
+            <Label
+                Text="APPEARANCE"
+                FontSize="12"
+                FontAttributes="Bold"
+                TextColor="#FFAD83"
+                Margin="0,12,0,0" />
+
+            <Border
+                BackgroundColor="#242342"
+                Stroke="#38365C"
+                StrokeShape="RoundRectangle 18"
+                Padding="16">
+
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="App theme"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="White" />
+
+                    <Picker
+                        x:Name="AppearancePicker"
+                        Title="Choose appearance"
+                        TextColor="White"
+                        TitleColor="#B7B5CE"
+                        SelectedIndexChanged="OnAppearanceChanged">
+                        <Picker.Items>
+                            <x:String>Dark</x:String>
+                            <x:String>Light</x:String>
+                            <x:String>System</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+            </Border>
+            <Label
+                Text="NOTIFICATIONS"
+                FontSize="12"
+                FontAttributes="Bold"
+                TextColor="#FFAD83"
+                Margin="0,12,0,0" />
+
+            <Border
+                BackgroundColor="#242342"
+                Stroke="#38365C"
+                StrokeShape="RoundRectangle 18"
+                Padding="16">
+
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label
+                            Text="Notification preference"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="White" />
+
+                        <Label
+                            Text="Save your notification preference on this device."
+                            FontSize="12"
+                            TextColor="#B7B5CE" />
+                    </VerticalStackLayout>
+
+                    <Switch
+                        Grid.Column="1"
+                        x:Name="NotificationsSwitch"
+                        OnColor="#FFAD83"
+                        Toggled="OnNotificationPreferenceChanged"
+                        VerticalOptions="Center" />
+
+                </Grid>
+            </Border>
+
+            <Label
+                Text="This setting is saved locally. Push notification controls will be connected when notification delivery is implemented."
+                FontSize="12"
+                TextColor="#B7B5CE" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

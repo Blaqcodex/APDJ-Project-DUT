@@ -1,4 +1,4 @@
-﻿using CampusPulse.Student.Services;
+using CampusPulse.Student.Services;
 
 namespace CampusPulse.Student;
 
@@ -16,6 +16,9 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
         Routing.RegisterRoute(nameof(StudentTimetablePage), typeof(StudentTimetablePage));
         Routing.RegisterRoute(nameof(StudentAttendancePage), typeof(StudentAttendancePage));
+
+        Routing.RegisterRoute(nameof(StudentCardPage), typeof(StudentCardPage));
+        Routing.RegisterRoute(nameof(StudentSettingsPage), typeof(StudentSettingsPage));
 
         Navigating += OnShellNavigating;
     }

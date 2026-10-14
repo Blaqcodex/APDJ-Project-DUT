@@ -1,4 +1,4 @@
-﻿using ZXing.Net.Maui.Controls;
+using ZXing.Net.Maui.Controls;
 
 using CampusPulse.Student.Services;
 using Microsoft.Extensions.Logging;
@@ -80,6 +80,20 @@ public static class MauiProgram
                 client.Timeout = TimeSpan.FromSeconds(15);
             });
 
+        // Register the authenticated student profile API service.
+        builder.Services.AddHttpClient<
+            IStudentProfileApiService,
+            StudentProfileApiService>(client =>
+            {
+#if DEBUG
+                client.BaseAddress = new Uri(
+                    "http://10.0.2.2:5240/");
+#else
+                client.BaseAddress = new Uri(
+                    "https://api.example.com/");
+#endif
+                client.Timeout = TimeSpan.FromSeconds(15);
+            });
         // Register secure authentication session storage.
         builder.Services.AddSingleton<
             ISessionService,

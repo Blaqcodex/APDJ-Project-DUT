@@ -1,4 +1,4 @@
-﻿using CampusPulse.Application.Interfaces;
+using CampusPulse.Application.Interfaces;
 using CampusPulse.Domain.Entities;
 using CampusPulse.Infrastructure.Data;
 
@@ -17,6 +17,12 @@ namespace CampusPulse.Infrastructure.Repositories
         {
             return dbContext.Students
                 .FirstOrDefault(student => student.StudentNumber == studentNumber);
+        }
+
+        public Student? GetByUserId(int userId)
+        {
+            return dbContext.Students
+                .FirstOrDefault(student => student.UserId == userId);
         }
 
         public void Add(Student student)

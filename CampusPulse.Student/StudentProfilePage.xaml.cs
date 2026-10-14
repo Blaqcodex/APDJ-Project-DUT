@@ -1,4 +1,4 @@
-﻿using CampusPulse.Student.Services;
+using CampusPulse.Student.Services;
 
 namespace CampusPulse.Student;
 
@@ -16,6 +16,17 @@ public partial class StudentProfilePage : ContentPage
                 "Session service is unavailable.");
     }
 
+    private async void OnSettingsTapped(
+        object? sender,
+        TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(
+            nameof(StudentSettingsPage));
+    }
+    private async void OnStudentCardTapped(object? sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(StudentCardPage));
+    }
     private async void OnLogoutClicked(
         object? sender,
         EventArgs e)
