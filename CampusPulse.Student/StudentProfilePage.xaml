@@ -48,20 +48,47 @@
                                VerticalOptions="Center" />
                     </Border>
 
-                    <Label Text="Student Profile"
+                    <Label x:Name="ProfileNameLabel" Text="Student Profile"
                            FontSize="22"
                            FontAttributes="Bold"
                            TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                            HorizontalTextAlignment="Center" />
 
-                    <Label Text="Your verified student details will appear here."
+                    <Label x:Name="ProfileNumberLabel" Text="Loading student details..."
                            FontSize="13"
                            TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
                            HorizontalTextAlignment="Center" />
 
+                     <VerticalStackLayout Spacing="8" Margin="0,12,0,0">
+                         <Label x:Name="ProfileEmailLabel"
+                                TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
+                                HorizontalTextAlignment="Center" />
+                         <Label x:Name="ProfileInstitutionLabel"
+                                TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
+                                HorizontalTextAlignment="Center" />
+                         <Label x:Name="ProfileProgrammeLabel"
+                                TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
+                                HorizontalTextAlignment="Center" />
+                         <Label x:Name="ProfileFacultyLabel"
+                                TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
+                                HorizontalTextAlignment="Center" />
+                         <Label x:Name="ProfileYearLabel"
+                                TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
+                                HorizontalTextAlignment="Center" />
+                     </VerticalStackLayout>
+
                 </VerticalStackLayout>
             </Border>
 
+            <ActivityIndicator x:Name="ProfileLoadingIndicator"
+                               IsVisible="False"
+                               IsRunning="False"
+                               Color="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
+                               HorizontalOptions="Center" />
+
+            <Label x:Name="ProfileStatusLabel"
+                   TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
+                   HorizontalTextAlignment="Center" />
             <Label Text="ACCOUNT"
                    FontSize="14"
                    CharacterSpacing="1"
