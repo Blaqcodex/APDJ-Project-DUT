@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CampusPulse.Student.StudentHelpSupportPage"
+    Title="Help &amp; Support"
+    BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24,28" Spacing="20">
+
+            <Label Text="How can we help?"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+
+            <Label Text="Find answers to common CampusPulse questions or contact your institution's support team."
+                   FontSize="14"
+                   TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+
+            <Border BackgroundColor="{AppThemeBinding Dark=#242342, Light=White}"
+                    Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
+                    StrokeThickness="1"
+                    Padding="18"
+                    StrokeShape="RoundRectangle 18">
+
+                <VerticalStackLayout Spacing="16">
+
+                    <Label Text="Frequently Asked Questions"
+                           FontSize="19"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
+
+                    <Label Text="How do I access my student card?"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+
+                    <Label Text="Open Profile and select Digital Student Card. Your details are loaded from your CampusPulse student profile."
+                           TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+
+                    <BoxView HeightRequest="1"
+                             Color="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}" />
+
+                    <Label Text="Why are some academic details missing?"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+
+                    <Label Text="Some details may not yet be assigned to your student record. Contact your institution if information is incorrect."
+                           TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+
+                    <BoxView HeightRequest="1"
+                             Color="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}" />
+
+                    <Label Text="How do I change the app appearance?"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+
+                    <Label Text="Go to Profile, open Settings, and choose Dark, Light or System under Appearance."
+                           TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+
+                    <BoxView HeightRequest="1"
+                             Color="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}" />
+
+                    <Label Text="What if I cannot sign in?"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+
+                    <Label Text="Check your internet connection and login details. You can use Forgot Password on the login screen to start account recovery."
+                           TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="{AppThemeBinding Dark=#242342, Light=White}"
+                    Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
+                    StrokeThickness="1"
+                    Padding="18"
+                    StrokeShape="RoundRectangle 18">
+
+                <VerticalStackLayout Spacing="12">
+
+                    <Label Text="Contact Support"
+                           FontSize="19"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
+
+                    <Label Text="Enter the support email address provided by your institution."
+                           TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+
+                    <Entry x:Name="SupportEmailEntry"
+                           Placeholder="support@example.com"
+                           Keyboard="Email"
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}"
+                           PlaceholderColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+
+                    <Button Text="Compose Support Email"
+                            Clicked="OnContactSupportClicked"
+                            BackgroundColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
+                            TextColor="White"
+                            CornerRadius="12" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="CampusPulse does not automatically send support requests. Your email app will open so you can review and send your message."
+                   FontSize="12"
+                   TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

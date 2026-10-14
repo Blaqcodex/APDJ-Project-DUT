@@ -16,6 +16,12 @@ public partial class StudentProfilePage : ContentPage
                 "Session service is unavailable.");
     }
 
+    private async void OnHelpSupportTapped(
+        object? sender,
+        TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(StudentHelpSupportPage));
+    }
     private async void OnSettingsTapped(
         object? sender,
         TappedEventArgs e)

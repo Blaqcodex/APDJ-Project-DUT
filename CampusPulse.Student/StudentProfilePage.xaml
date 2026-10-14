@@ -100,7 +100,11 @@
 
                     <Label Text="&#x2753;   Help &amp; Support"
                            FontSize="16"
-                           TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHelpSupportTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
 
                 </VerticalStackLayout>
             </Border>
