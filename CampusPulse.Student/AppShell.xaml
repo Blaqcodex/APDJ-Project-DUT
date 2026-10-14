@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="CampusPulse.Student.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CampusPulse.Student"
     Title="CampusPulse"
-    Shell.BackgroundColor="#101027"
-    Shell.ForegroundColor="White"
-    Shell.TabBarBackgroundColor="#1B1936"
-    Shell.TabBarForegroundColor="#FFAD83"
-    Shell.TabBarUnselectedColor="#B5B4D0">
+    Shell.BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
+    Shell.ForegroundColor="{AppThemeBinding Dark=White, Light=#202038}"
+    Shell.TabBarBackgroundColor="{AppThemeBinding Dark=#1B1936, Light=#FFFFFF}"
+    Shell.TabBarForegroundColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
+    Shell.TabBarUnselectedColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}">
 
     <!-- Authentication entry -->
     <ShellContent
@@ -22,14 +22,14 @@
     <TabBar
         Route="StudentTabs"
         FlyoutItemIsVisible="False"
-        Shell.BackgroundColor="#101027"
-        Shell.ForegroundColor="#FFFFFF"
-        Shell.TitleColor="#FFFFFF"
-        Shell.DisabledColor="#77738F"
-        Shell.TabBarBackgroundColor="#1B1936"
-        Shell.TabBarForegroundColor="#FFAD83"
-        Shell.TabBarTitleColor="#FFAD83"
-        Shell.TabBarUnselectedColor="#B5B4D0">
+        Shell.BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
+        Shell.ForegroundColor="{AppThemeBinding Dark=#FFFFFF, Light=#202038}"
+        Shell.TitleColor="{AppThemeBinding Dark=#FFFFFF, Light=#202038}"
+        Shell.DisabledColor="{AppThemeBinding Dark=#77738F, Light=#A5A3B8}"
+        Shell.TabBarBackgroundColor="{AppThemeBinding Dark=#1B1936, Light=#FFFFFF}"
+        Shell.TabBarForegroundColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
+        Shell.TabBarTitleColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
+        Shell.TabBarUnselectedColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}">
         <ShellContent Icon="icon_home.png"
             Title="Home"
             Route="StudentHome"
@@ -57,3 +57,4 @@
     </TabBar>
 
 </Shell>
+

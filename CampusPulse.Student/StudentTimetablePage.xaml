@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CampusPulse.Student.StudentTimetablePage"
-    BackgroundColor="#101027"
+    BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
     Title="My Timetable">
 
     <ScrollView>
@@ -15,23 +15,23 @@
                     FontSize="13"
                     CharacterSpacing="2"
                     FontAttributes="Bold"
-                    TextColor="#FFAD83" />
+                    TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
 
                 <Label
                     Text="Your weekly classes"
                     FontSize="28"
                     FontAttributes="Bold"
-                    TextColor="White" />
+                    TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                 <Label
                     Text="Stay on top of your lectures and venues."
                     FontSize="14"
-                    TextColor="#B5B4D0" />
+                    TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
             </VerticalStackLayout>
 
             <Border
-                BackgroundColor="#242342"
-                Stroke="#38365C"
+                BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
                 StrokeThickness="1"
                 Padding="24"
                 StrokeShape="RoundRectangle 20">
@@ -47,13 +47,13 @@
                         Text="No classes scheduled yet"
                         FontSize="18"
                         FontAttributes="Bold"
-                        TextColor="White"
+                        TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                         HorizontalTextAlignment="Center" />
 
                     <Label
                         Text="Your registered modules and weekly timetable will appear here once your classes are available."
                         FontSize="13"
-                        TextColor="#B5B4D0"
+                        TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
                         HorizontalTextAlignment="Center" />
 
                 </VerticalStackLayout>

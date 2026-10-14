@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CampusPulse.Student.StudentProfilePage"
-    BackgroundColor="#101027"
+    BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
     Title="My Profile">
 
     <ScrollView>
@@ -14,20 +14,20 @@
                        FontSize="13"
                        CharacterSpacing="2"
                        FontAttributes="Bold"
-                       TextColor="#FFAD83" />
+                       TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
 
                 <Label Text="My Profile"
                        FontSize="30"
                        FontAttributes="Bold"
-                       TextColor="White" />
+                       TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                 <Label Text="Your CampusPulse identity and account."
                        FontSize="14"
-                       TextColor="#B5B4D0" />
+                       TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
             </VerticalStackLayout>
 
-            <Border BackgroundColor="#242342"
-                    Stroke="#38365C"
+            <Border BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                    Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
                     StrokeThickness="1"
                     Padding="24"
                     StrokeShape="RoundRectangle 22">
@@ -35,7 +35,7 @@
                 <VerticalStackLayout Spacing="12"
                                      HorizontalOptions="Center">
 
-                    <Border BackgroundColor="#55476E"
+                    <Border BackgroundColor="{AppThemeBinding Dark=#55476E, Light=#D8D4E6}"
                             StrokeThickness="0"
                             WidthRequest="90"
                             HeightRequest="90"
@@ -51,12 +51,12 @@
                     <Label Text="Student Profile"
                            FontSize="22"
                            FontAttributes="Bold"
-                           TextColor="White"
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                            HorizontalTextAlignment="Center" />
 
                     <Label Text="Your verified student details will appear here."
                            FontSize="13"
-                           TextColor="#B5B4D0"
+                           TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
                            HorizontalTextAlignment="Center" />
 
                 </VerticalStackLayout>
@@ -66,10 +66,10 @@
                    FontSize="14"
                    CharacterSpacing="1"
                    FontAttributes="Bold"
-                   TextColor="#D0C9E6" />
+                   TextColor="{AppThemeBinding Dark=#D0C9E6, Light=#44425F}" />
 
-            <Border BackgroundColor="#242342"
-                    Stroke="#38365C"
+            <Border BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                    Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
                     StrokeThickness="1"
                     Padding="20"
                     StrokeShape="RoundRectangle 20">
@@ -78,29 +78,29 @@
 
                     <Label Text="&#x1F4B3;   Digital Student Card"
                            FontSize="16"
-                           TextColor="White">
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnStudentCardTapped" />
                         </Label.GestureRecognizers>
                     </Label>
 
                     <BoxView HeightRequest="1"
-                             Color="#38365C" />
+                             Color="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}" />
 
                     <Label Text="&#x2699;   Settings"
                            FontSize="16"
-                           TextColor="White">
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnSettingsTapped" />
                         </Label.GestureRecognizers>
                     </Label>
 
                     <BoxView HeightRequest="1"
-                             Color="#38365C" />
+                             Color="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}" />
 
                     <Label Text="&#x2753;   Help &amp; Support"
                            FontSize="16"
-                           TextColor="White" />
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                 </VerticalStackLayout>
             </Border>
@@ -108,7 +108,7 @@
                 Text="Log Out"
                 Clicked="OnLogoutClicked"
                 BackgroundColor="#3B263D"
-                TextColor="#FFAD83"
+                TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
                 FontSize="16"
                 FontAttributes="Bold"
                 HeightRequest="56"

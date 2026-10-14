@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CampusPulse.Student.StudentCardPage"
-    BackgroundColor="#101027"
+    BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
     Title="Digital Student Card">
 
     <ScrollView>
@@ -13,32 +13,32 @@
                    FontSize="12"
                    CharacterSpacing="2"
                    FontAttributes="Bold"
-                   TextColor="#FFAD83" />
+                   TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
 
             <Label Text="My Student Card"
                    FontSize="28"
                    FontAttributes="Bold"
-                   TextColor="White" />
+                   TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
             <Label Text="Your CampusPulse student identity."
                    FontSize="14"
-                   TextColor="#B5B4D0" />
+                   TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
 
             <ActivityIndicator
                 x:Name="LoadingIndicator"
-                Color="#FFAD83"
+                Color="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
                 IsRunning="True"
                 IsVisible="True" />
 
             <Label x:Name="StatusLabel"
                    Text="Loading your student details..."
                    FontSize="14"
-                   TextColor="#B5B4D0" />
+                   TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
 
             <Border x:Name="StudentCard"
                     IsVisible="False"
-                    BackgroundColor="#242342"
-                    Stroke="#FFAD83"
+                    BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                    Stroke="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
                     StrokeThickness="1"
                     Padding="16"
                     StrokeShape="RoundRectangle 20">
@@ -51,19 +51,19 @@
                             <Label Text="CAMPUSPULSE"
                                    FontSize="20"
                                    FontAttributes="Bold"
-                                   TextColor="#FFAD83" />
+                                   TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
 
                             <Label Text="DIGITAL STUDENT ID"
                                    FontSize="9"
                                    CharacterSpacing="1"
-                                   TextColor="#D0C9E6" />
+                                   TextColor="{AppThemeBinding Dark=#D0C9E6, Light=#44425F}" />
                         </VerticalStackLayout>
 
                         <Label Grid.Column="1"
                                Text="STUDENT"
                                FontSize="12"
                                FontAttributes="Bold"
-                               TextColor="White"
+                               TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                                VerticalOptions="Center" />
                     </Grid>
 
@@ -80,34 +80,34 @@
                             <Label x:Name="StudentNumberLabel"
                                    FontSize="19"
                                    FontAttributes="Bold"
-                                   TextColor="#FFAD83" />
+                                   TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
 
                             <Label x:Name="StudentNameLabel"
                                    FontSize="17"
                                    FontAttributes="Bold"
-                                   TextColor="White"
+                                   TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                                    LineBreakMode="WordWrap" />
 
                             <Label x:Name="ProgrammeLabel"
                                    FontSize="12"
-                                   TextColor="#D0C9E6"
+                                   TextColor="{AppThemeBinding Dark=#D0C9E6, Light=#44425F}"
                                    LineBreakMode="WordWrap" />
 
                             <Label x:Name="FacultyLabel"
                                    FontSize="11"
-                                   TextColor="#B5B4D0"
+                                   TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
                                    LineBreakMode="WordWrap" />
 
                             <Label x:Name="YearLevelLabel"
                                    FontSize="11"
-                                   TextColor="#B5B4D0" />
+                                   TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
 
                         </VerticalStackLayout>
 
                         <!-- Photo placeholder -->
                         <Border Grid.Column="1"
-                                BackgroundColor="#55476E"
-                                Stroke="#FFAD83"
+                                BackgroundColor="{AppThemeBinding Dark=#55476E, Light=#D8D4E6}"
+                                Stroke="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
                                 StrokeThickness="1"
                                 HeightRequest="125"
                                 StrokeShape="RoundRectangle 12">
@@ -123,7 +123,7 @@
 
                                 <Label Text="PHOTO"
                                        FontSize="10"
-                                       TextColor="#D0C9E6"
+                                       TextColor="{AppThemeBinding Dark=#D0C9E6, Light=#44425F}"
                                        HorizontalTextAlignment="Center" />
                             </VerticalStackLayout>
                         </Border>
@@ -141,13 +141,13 @@
                                    FontSize="22"
                                    FontAttributes="Bold"
                                    CharacterSpacing="1"
-                                   TextColor="#101027"
+                                   TextColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
                                    HorizontalTextAlignment="Center"
                                    LineBreakMode="NoWrap" />
 
                             <Label Text="CARD PREVIEW - NOT SCANNABLE"
                                    FontSize="9"
-                                   TextColor="#101027"
+                                   TextColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
                                    HorizontalTextAlignment="Center" />
 
                         </VerticalStackLayout>
@@ -156,12 +156,12 @@
                     <Label x:Name="InstitutionLabel"
                            FontSize="12"
                            FontAttributes="Bold"
-                           TextColor="#FFAD83"
+                           TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
                            HorizontalTextAlignment="Center" />
 
                     <Label x:Name="EmailLabel"
                            FontSize="11"
-                           TextColor="#B5B4D0"
+                           TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
                            HorizontalTextAlignment="Center"
                            LineBreakMode="WordWrap" />
 
@@ -170,7 +170,7 @@
 
             <Label Text="CampusPulse student card preview. This is not an official DUT identification document."
                    FontSize="12"
-                   TextColor="#B5B4D0"
+                   TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
                    HorizontalTextAlignment="Center" />
 
         </VerticalStackLayout>

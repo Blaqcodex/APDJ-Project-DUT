@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CampusPulse.Student.StudentDashboardPage"
-    BackgroundColor="#101027"
+    BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
     Title="Dashboard">
 
     <Grid RowDefinitions="*,Auto">
@@ -20,7 +20,7 @@
                         <LinearGradientBrush
                             StartPoint="0,0"
                             EndPoint="1,1">
-                            <GradientStop Color="#24204C" Offset="0" />
+                            <GradientStop Color="{AppThemeBinding Dark=#24204C, Light=#ECEAF5}" Offset="0" />
                             <GradientStop Color="#56336A" Offset="0.55" />
                             <GradientStop Color="#9A4E65" Offset="1" />
                         </LinearGradientBrush>
@@ -38,23 +38,23 @@
                                     FontSize="13"
                                     CharacterSpacing="3"
                                     FontAttributes="Bold"
-                                    TextColor="#FFAD83" />
+                                    TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
 
                                 <Label
                                     Text="Welcome back!"
                                     FontSize="27"
                                     FontAttributes="Bold"
-                                    TextColor="White" />
+                                    TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                                 <Label
                                     Text="Your academic day starts here."
                                     FontSize="13"
-                                    TextColor="#E2D7EE" />
+                                    TextColor="{AppThemeBinding Dark=#E2D7EE, Light=#44425F}" />
                             </VerticalStackLayout>
 
                             <Border
                                 Grid.Column="1"
-                                BackgroundColor="#55476E"
+                                BackgroundColor="{AppThemeBinding Dark=#55476E, Light=#D8D4E6}"
                                 StrokeThickness="0"
                                 Padding="13"
                                 VerticalOptions="Start"
@@ -66,7 +66,7 @@
 
                         <!-- ATTENDANCE -->
                         <Border
-                            BackgroundColor="#453B70"
+                            BackgroundColor="{AppThemeBinding Dark=#453B70, Light=#D8D4E6}"
                             Stroke="#79618E"
                             StrokeThickness="1"
                             Padding="22"
@@ -91,7 +91,7 @@
                                             Text="--%"
                                             FontSize="46"
                                             FontAttributes="Bold"
-                                            TextColor="White" />
+                                            TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                                         <Label
                                             Text="Awaiting attendance records"
@@ -129,7 +129,7 @@
                             FontSize="15"
                             FontAttributes="Bold"
                             CharacterSpacing="1"
-                            TextColor="#D0C9E6" />
+                            TextColor="{AppThemeBinding Dark=#D0C9E6, Light=#44425F}" />
 
                         <Grid
                             ColumnDefinitions="*,*,*"
@@ -140,7 +140,7 @@
                             <Border
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                BackgroundColor="#34305E"
+                                BackgroundColor="{AppThemeBinding Dark=#34305E, Light=#ECEAF5}"
                                 Padding="12"
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 18">
@@ -151,7 +151,7 @@
                                     <Image Source="icon_scan.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Scan QR"
                                            FontSize="12"
-                                           TextColor="White"
+                                           TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                                            HorizontalOptions="Center" />
                                 </VerticalStackLayout>
                             </Border>
@@ -159,7 +159,7 @@
                             <Border
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                BackgroundColor="#34305E"
+                                BackgroundColor="{AppThemeBinding Dark=#34305E, Light=#ECEAF5}"
                                 Padding="12"
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 18">
@@ -171,7 +171,7 @@
                                     <Image Source="icon_timetable.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Timetable"
                                            FontSize="12"
-                                           TextColor="White"
+                                           TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                                            HorizontalOptions="Center" />
                                 </VerticalStackLayout>
                             </Border>
@@ -190,7 +190,7 @@
                                     <Image Source="icon_attendance.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Attendance"
                                            FontSize="12"
-                                           TextColor="White"
+                                           TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                                            HorizontalOptions="Center" />
                                 </VerticalStackLayout>
                             </Border>
@@ -209,7 +209,7 @@
                                     <Image Source="icon_alerts.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Notices"
                                            FontSize="12"
-                                           TextColor="White"
+                                           TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                                            HorizontalOptions="Center" />
                                 </VerticalStackLayout>
                             </Border>
@@ -228,7 +228,7 @@
                                     <Image Source="icon_card.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" Aspect="AspectFit" />
                                     <Label Text="Student Card"
                                            FontSize="12"
-                                           TextColor="White"
+                                           TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                                            HorizontalOptions="Center" />
                                 </VerticalStackLayout>
                             </Border>
@@ -248,7 +248,7 @@
                                     <Label
                                         Text="Verify Email"
                                         FontSize="12"
-                                        TextColor="White"
+                                        TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                                         HorizontalOptions="Center" />
                                 </VerticalStackLayout>
                             </Border>
@@ -263,11 +263,11 @@
                             FontSize="16"
                             FontAttributes="Bold"
                             CharacterSpacing="1"
-                            TextColor="#D0C9E6" />
+                            TextColor="{AppThemeBinding Dark=#D0C9E6, Light=#44425F}" />
 
                         <Border
-                            BackgroundColor="#242342"
-                            Stroke="#38365C"
+                            BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                            Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
                             StrokeThickness="1"
                             Padding="20"
                             StrokeShape="RoundRectangle 20">
@@ -277,12 +277,12 @@
                                     Text="No classes loaded yet"
                                     FontSize="17"
                                     FontAttributes="Bold"
-                                    TextColor="White" />
+                                    TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                                 <Label
                                     Text="Your timetable will appear here when connected to CampusPulse."
                                     FontSize="13"
-                                    TextColor="#B5B4D0" />
+                                    TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
                             </VerticalStackLayout>
                         </Border>
                     </VerticalStackLayout>
@@ -295,11 +295,11 @@
                             FontSize="16"
                             FontAttributes="Bold"
                             CharacterSpacing="1"
-                            TextColor="#D0C9E6" />
+                            TextColor="{AppThemeBinding Dark=#D0C9E6, Light=#44425F}" />
 
                         <Border
-                            BackgroundColor="#242342"
-                            Stroke="#38365C"
+                            BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                            Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
                             StrokeThickness="1"
                             Padding="20"
                             StrokeShape="RoundRectangle 20">
@@ -309,12 +309,12 @@
                                     Text="You're all caught up"
                                     FontSize="17"
                                     FontAttributes="Bold"
-                                    TextColor="White" />
+                                    TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                                 <Label
                                     Text="Your campus alerts and reminders will appear here."
                                     FontSize="13"
-                                    TextColor="#B5B4D0" />
+                                    TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
                             </VerticalStackLayout>
                         </Border>
                     </VerticalStackLayout>

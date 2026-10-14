@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CampusPulse.Student.StudentAttendancePage"
-    BackgroundColor="#101027"
+    BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
     Title="My Attendance">
 
     <ScrollView>
@@ -15,22 +15,22 @@
                     FontSize="13"
                     CharacterSpacing="2"
                     FontAttributes="Bold"
-                    TextColor="#FFAD83" />
+                    TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
 
                 <Label
                     Text="Track your progress"
                     FontSize="28"
                     FontAttributes="Bold"
-                    TextColor="White" />
+                    TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                 <Label
                     Text="View your class attendance and stay on track."
                     FontSize="14"
-                    TextColor="#B5B4D0" />
+                    TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
             </VerticalStackLayout>
 
             <Border
-                BackgroundColor="#453B70"
+                BackgroundColor="{AppThemeBinding Dark=#453B70, Light=#D8D4E6}"
                 StrokeThickness="0"
                 Padding="24"
                 StrokeShape="RoundRectangle 20">
@@ -41,18 +41,18 @@
                         FontSize="12"
                         FontAttributes="Bold"
                         CharacterSpacing="1"
-                        TextColor="#D6D0F4" />
+                        TextColor="{AppThemeBinding Dark=#D6D0F4, Light=#44425F}" />
 
                     <Label
                         Text="--%"
                         FontSize="48"
                         FontAttributes="Bold"
-                        TextColor="White" />
+                        TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                     <Label
                         Text="Awaiting attendance records"
                         FontSize="13"
-                        TextColor="#D6D0F4" />
+                        TextColor="{AppThemeBinding Dark=#D6D0F4, Light=#44425F}" />
                 </VerticalStackLayout>
             </Border>
 
@@ -62,11 +62,11 @@
                     FontSize="13"
                     FontAttributes="Bold"
                     CharacterSpacing="1"
-                    TextColor="#FFAD83" />
+                    TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
 
                 <Border
-                    BackgroundColor="#242342"
-                    Stroke="#38365C"
+                    BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                    Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
                     StrokeThickness="1"
                     Padding="24"
                     StrokeShape="RoundRectangle 18">
@@ -76,13 +76,13 @@
                             Text="No module attendance yet"
                             FontSize="17"
                             FontAttributes="Bold"
-                            TextColor="White"
+                            TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                             HorizontalTextAlignment="Center" />
 
                         <Label
                             Text="Your attendance percentages for each registered module will appear here."
                             FontSize="13"
-                            TextColor="#B5B4D0"
+                            TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
                             HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
                 </Border>
@@ -94,11 +94,11 @@
                     FontSize="13"
                     FontAttributes="Bold"
                     CharacterSpacing="1"
-                    TextColor="#FFAD83" />
+                    TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
 
                 <Border
-                    BackgroundColor="#242342"
-                    Stroke="#38365C"
+                    BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                    Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
                     StrokeThickness="1"
                     Padding="24"
                     StrokeShape="RoundRectangle 18">
@@ -108,13 +108,13 @@
                             Text="No attendance history available"
                             FontSize="17"
                             FontAttributes="Bold"
-                            TextColor="White"
+                            TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                             HorizontalTextAlignment="Center" />
 
                         <Label
                             Text="Your recorded class attendance will appear here once attendance tracking is active."
                             FontSize="13"
-                            TextColor="#B5B4D0"
+                            TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
                             HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
                 </Border>

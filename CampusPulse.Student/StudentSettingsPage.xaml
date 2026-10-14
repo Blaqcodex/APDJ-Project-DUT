@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CampusPulse.Student.StudentSettingsPage"
     Title="Settings"
-    BackgroundColor="#101027">
+    BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}">
 
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="22">
@@ -13,23 +13,23 @@
                 Text="Settings"
                 FontSize="30"
                 FontAttributes="Bold"
-                TextColor="White" />
+                TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
             <Label
                 Text="Manage your CampusPulse preferences."
                 FontSize="14"
-                TextColor="#B7B5CE" />
+                TextColor="{AppThemeBinding Dark=#B7B5CE, Light=#686680}" />
 
             <Label
                 Text="APPEARANCE"
                 FontSize="12"
                 FontAttributes="Bold"
-                TextColor="#FFAD83"
+                TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
                 Margin="0,12,0,0" />
 
             <Border
-                BackgroundColor="#242342"
-                Stroke="#38365C"
+                BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
                 StrokeShape="RoundRectangle 18"
                 Padding="16">
 
@@ -38,13 +38,13 @@
                         Text="App theme"
                         FontSize="16"
                         FontAttributes="Bold"
-                        TextColor="White" />
+                        TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                     <Picker
                         x:Name="AppearancePicker"
                         Title="Choose appearance"
-                        TextColor="White"
-                        TitleColor="#B7B5CE"
+                        TextColor="{AppThemeBinding Dark=White, Light=#202038}"
+                        TitleColor="{AppThemeBinding Dark=#B7B5CE, Light=#686680}"
                         SelectedIndexChanged="OnAppearanceChanged">
                         <Picker.Items>
                             <x:String>Dark</x:String>
@@ -58,12 +58,12 @@
                 Text="NOTIFICATIONS"
                 FontSize="12"
                 FontAttributes="Bold"
-                TextColor="#FFAD83"
+                TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
                 Margin="0,12,0,0" />
 
             <Border
-                BackgroundColor="#242342"
-                Stroke="#38365C"
+                BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
                 StrokeShape="RoundRectangle 18"
                 Padding="16">
 
@@ -74,18 +74,18 @@
                             Text="Notification preference"
                             FontSize="16"
                             FontAttributes="Bold"
-                            TextColor="White" />
+                            TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                         <Label
                             Text="Save your notification preference on this device."
                             FontSize="12"
-                            TextColor="#B7B5CE" />
+                            TextColor="{AppThemeBinding Dark=#B7B5CE, Light=#686680}" />
                     </VerticalStackLayout>
 
                     <Switch
                         Grid.Column="1"
                         x:Name="NotificationsSwitch"
-                        OnColor="#FFAD83"
+                        OnColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}"
                         Toggled="OnNotificationPreferenceChanged"
                         VerticalOptions="Center" />
 
@@ -95,7 +95,7 @@
             <Label
                 Text="This setting is saved locally. Push notification controls will be connected when notification delivery is implemented."
                 FontSize="12"
-                TextColor="#B7B5CE" />
+                TextColor="{AppThemeBinding Dark=#B7B5CE, Light=#686680}" />
 
         </VerticalStackLayout>
     </ScrollView>

@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="CampusPulse.Student.StudentNotificationsPage"
-    BackgroundColor="#101027"
+    BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
     Title="Notifications">
 
     <ScrollView>
@@ -15,23 +15,23 @@
                     FontSize="13"
                     CharacterSpacing="2"
                     FontAttributes="Bold"
-                    TextColor="#FFAD83" />
+                    TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
 
                 <Label
                     Text="Notifications"
                     FontSize="30"
                     FontAttributes="Bold"
-                    TextColor="White" />
+                    TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
 
                 <Label
                     Text="Important announcements, class reminders and attendance updates."
                     FontSize="14"
-                    TextColor="#B5B4D0" />
+                    TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
             </VerticalStackLayout>
 
             <Border
-                BackgroundColor="#242342"
-                Stroke="#38365C"
+                BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
                 StrokeThickness="1"
                 Padding="24"
                 StrokeShape="RoundRectangle 20">
@@ -47,13 +47,13 @@
                         Text="You're all caught up"
                         FontSize="20"
                         FontAttributes="Bold"
-                        TextColor="White"
+                        TextColor="{AppThemeBinding Dark=White, Light=#202038}"
                         HorizontalTextAlignment="Center" />
 
                     <Label
                         Text="Your university announcements, class reminders and important alerts will appear here when available."
                         FontSize="14"
-                        TextColor="#B5B4D0"
+                        TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
                         HorizontalTextAlignment="Center" />
 
                 </VerticalStackLayout>
