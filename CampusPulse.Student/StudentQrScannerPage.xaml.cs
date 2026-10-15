@@ -1,10 +1,14 @@
-﻿using ZXing.Net.Maui;
+using CampusPulse.Student.Services;
+using Microsoft.Extensions.DependencyInjection;
+using ZXing.Net.Maui;
 
 namespace CampusPulse.Student;
 
 public partial class StudentQrScannerPage : ContentPage
 {
     private bool hasScanned;
+    private bool isSubmitting;
+    private bool cameraReady;
 
     public StudentQrScannerPage()
     {
@@ -23,6 +27,8 @@ public partial class StudentQrScannerPage : ContentPage
         base.OnAppearing();
 
         hasScanned = false;
+        cameraReady = false;
+        CameraView.IsDetecting = false;
 
         PermissionStatus permission =
             await Permissions.RequestAsync<Permissions.Camera>();
@@ -30,16 +36,17 @@ public partial class StudentQrScannerPage : ContentPage
         if (permission != PermissionStatus.Granted)
         {
             StatusLabel.Text = "Camera permission is required.";
-            CameraView.IsDetecting = false;
             return;
         }
 
+        cameraReady = true;
         StatusLabel.Text = "Camera ready. Scan a QR code.";
         CameraView.IsDetecting = true;
     }
 
     protected override void OnDisappearing()
     {
+        cameraReady = false;
         CameraView.IsDetecting = false;
         base.OnDisappearing();
     }
@@ -48,38 +55,82 @@ public partial class StudentQrScannerPage : ContentPage
         object? sender,
         BarcodeDetectionEventArgs e)
     {
-        if (hasScanned || e.Results.Length == 0)
+        if (hasScanned || isSubmitting || e.Results.Length == 0)
         {
             return;
         }
 
         hasScanned = true;
-
-        System.Diagnostics.Debug.WriteLine(
-            "QR DEBUG: Barcode detected by ZXing.");
-
         string qrValue = e.Results[0].Value;
 
         MainThread.BeginInvokeOnMainThread(async () =>
         {
             CameraView.IsDetecting = false;
-            StatusLabel.Text = "QR code detected.";
+            await SubmitAttendanceAsync(qrValue);
+        });
+    }
+
+    private async Task SubmitAttendanceAsync(string qrValue)
+    {
+        if (isSubmitting)
+        {
+            return;
+        }
+
+        isSubmitting = true;
+        StatusLabel.Text = "Verifying attendance...";
+
+        try
+        {
+            var services = IPlatformApplication.Current?.Services;
+
+            if (services == null)
+            {
+                StatusLabel.Text = "Application services unavailable.";
+                return;
+            }
+
+            var attendanceService =
+                services.GetRequiredService<IStudentAttendanceApiService>();
+
+            AttendanceCheckInResult result =
+                await attendanceService.CheckInAsync(qrValue);
+
+            StatusLabel.Text = result.Message;
 
             await DisplayAlertAsync(
-                "QR Code Scanned",
-                "QR code read successfully. Attendance validation will be added next.",
+                result.Success ? "Attendance Confirmed" : "Check-in Failed",
+                result.Message,
                 "OK");
-        });
+        }
+        catch (Exception ex) when (
+            ex is not OutOfMemoryException)
+        {
+            StatusLabel.Text =
+                "An unexpected error occurred. Please try again.";
+
+            await DisplayAlertAsync(
+                "Attendance Error",
+                "Unable to complete attendance check-in.",
+                "OK");
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
     }
 
     private void OnScanAgainClicked(
         object? sender,
         EventArgs e)
     {
+        if (isSubmitting || !cameraReady)
+        {
+            return;
+        }
+
         hasScanned = false;
         StatusLabel.Text = "Ready to scan another QR code.";
         CameraView.IsDetecting = true;
     }
 }
-
-

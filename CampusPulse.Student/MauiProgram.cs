@@ -94,6 +94,20 @@ public static class MauiProgram
 #endif
                 client.Timeout = TimeSpan.FromSeconds(15);
             });
+        // Register authenticated attendance API requests.
+        builder.Services.AddHttpClient<
+            IStudentAttendanceApiService,
+            StudentAttendanceApiService>(client =>
+            {
+#if DEBUG
+                client.BaseAddress = new Uri(
+                    "http://10.0.2.2:5240/");
+#else
+                client.BaseAddress = new Uri(
+                    "https://api.example.com/");
+#endif
+                client.Timeout = TimeSpan.FromSeconds(15);
+            });
         // Register authenticated student timetable API requests.
         builder.Services.AddHttpClient<
             IStudentTimetableApiService,

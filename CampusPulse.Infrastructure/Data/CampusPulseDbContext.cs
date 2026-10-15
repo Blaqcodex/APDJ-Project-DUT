@@ -1,4 +1,4 @@
-﻿
+
 using CampusPulse.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -149,6 +149,10 @@ namespace CampusPulse.Infrastructure.Data
                 .HasForeignKey(a => a.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Prevent duplicate attendance for the same student and session.
+            modelBuilder.Entity<AttendanceRecord>()
+                .HasIndex(a => new { a.AttendanceSessionId, a.StudentId })
+                .IsUnique();
             // User → Notification
             modelBuilder.Entity<Notification>()
                 .HasOne<User>()
