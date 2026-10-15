@@ -272,21 +272,37 @@
                             Padding="20"
                             StrokeShape="RoundRectangle 20">
 
-                            <VerticalStackLayout Spacing="8">
-                                <Label
-                                    Text="No classes loaded yet"
-                                    FontSize="17"
-                                    FontAttributes="Bold"
-                                    TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+                            <VerticalStackLayout Spacing="12">
+
+                                <ActivityIndicator
+                                    x:Name="TodayLoadingIndicator"
+                                    IsVisible="False"
+                                    IsRunning="False"
+                                    Color="#FFAD83"
+                                    HorizontalOptions="Center" />
 
                                 <Label
-                                    Text="Your timetable will appear here when connected to CampusPulse."
+                                    x:Name="TodayStatusLabel"
+                                    Text="Loading today's classes..."
                                     FontSize="13"
                                     TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+
+                                <VerticalStackLayout
+                                    x:Name="TodayClassesContainer"
+                                    Spacing="14" />
+
+                                <Button
+                                    x:Name="TodayRetryButton"
+                                    Text="Try Again"
+                                    IsVisible="False"
+                                    Clicked="OnTodayRetryClicked"
+                                    BackgroundColor="#B95632"
+                                    TextColor="White"
+                                    CornerRadius="12" />
+
                             </VerticalStackLayout>
                         </Border>
                     </VerticalStackLayout>
-
                     <!-- NOTIFICATIONS -->
                     <VerticalStackLayout Spacing="14">
 

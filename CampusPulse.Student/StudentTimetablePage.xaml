@@ -29,35 +29,32 @@
                     TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
             </VerticalStackLayout>
 
-            <Border
-                BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
-                Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
-                StrokeThickness="1"
-                Padding="24"
-                StrokeShape="RoundRectangle 20">
+            <ActivityIndicator
+                x:Name="LoadingIndicator"
+                IsRunning="False"
+                IsVisible="False"
+                Color="#FFAD83"
+                HorizontalOptions="Center" />
 
-                <VerticalStackLayout Spacing="14">
+            <Label
+                x:Name="StatusLabel"
+                IsVisible="False"
+                FontSize="14"
+                HorizontalTextAlignment="Center"
+                TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
 
-                    <Label
-                        Text="📅"
-                        FontSize="42"
-                        HorizontalOptions="Center" />
+            <Button
+                x:Name="RetryButton"
+                Text="Try Again"
+                IsVisible="False"
+                Clicked="OnRetryClicked"
+                BackgroundColor="#B95632"
+                TextColor="White"
+                CornerRadius="12" />
 
-                    <Label
-                        Text="No classes scheduled yet"
-                        FontSize="18"
-                        FontAttributes="Bold"
-                        TextColor="{AppThemeBinding Dark=White, Light=#202038}"
-                        HorizontalTextAlignment="Center" />
-
-                    <Label
-                        Text="Your registered modules and weekly timetable will appear here once your classes are available."
-                        FontSize="13"
-                        TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}"
-                        HorizontalTextAlignment="Center" />
-
-                </VerticalStackLayout>
-            </Border>
+            <VerticalStackLayout
+                x:Name="TimetableContainer"
+                Spacing="20" />
 
         </VerticalStackLayout>
     </ScrollView>
