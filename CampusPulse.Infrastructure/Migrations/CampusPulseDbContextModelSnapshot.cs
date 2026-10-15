@@ -69,9 +69,10 @@ namespace CampusPulse.Infrastructure.Migrations
 
                     b.HasKey("AttendanceRecordId");
 
-                    b.HasIndex("AttendanceSessionId");
-
                     b.HasIndex("StudentId");
+
+                    b.HasIndex("AttendanceSessionId", "StudentId")
+                        .IsUnique();
 
                     b.ToTable("AttendanceRecords");
                 });
@@ -89,6 +90,9 @@ namespace CampusPulse.Infrastructure.Migrations
 
                     b.Property<string>("QrToken")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("QrTokenExpiresAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("SessionDate")
                         .HasColumnType("datetime2");

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace CampusPulse.Domain.Entities
 {
@@ -14,7 +14,10 @@ namespace CampusPulse.Domain.Entities
 
         public DateTime ExpiresAt { get; set; }
 
+        // SHA-256 hash of the current short-lived QR token.
         public string QrToken { get; set; } = "";
+
+        public DateTime QrTokenExpiresAt { get; set; }
 
         public string Status { get; set; } = "";
     }
