@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -28,6 +30,8 @@ namespace CampusPulse.Admin
         private DateTimeOffset _qrExpiresAt;
         private DateTimeOffset _sessionExpiresAt;
         private bool _busy;
+        private bool _closingAfterEnd;
+        private bool _endingOnClose;
 
         public LecturerAttendanceWindow()
         {
@@ -79,6 +83,56 @@ namespace CampusPulse.Admin
             return document.RootElement.Clone();
         }
 
+        private async Task<JsonElement> GetActiveSessionAsync(
+            int timetableId)
+        {
+            SetAuthorization();
+
+            using var response = await _http.GetAsync(
+                $"api/lecturer/attendance/active/{timetableId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new InvalidOperationException(
+                    $"Session lookup failed (HTTP {(int)response.StatusCode}).");
+            }
+
+            using var document = JsonDocument.Parse(
+                await response.Content.ReadAsStringAsync());
+
+            return document.RootElement.Clone();
+        }
+
+        private async Task ResumeAttendanceAsync(int timetableId)
+        {
+            var active = await GetActiveSessionAsync(timetableId);
+
+            int sessionId = active
+                .GetProperty("sessionId")
+                .GetInt32();
+
+            DateTimeOffset sessionExpiry = active
+                .GetProperty("sessionExpiresAt")
+                .GetDateTimeOffset();
+
+            if (sessionExpiry <= DateTimeOffset.UtcNow)
+            {
+                throw new InvalidOperationException(
+                    "The previous attendance session has expired. Please try again.");
+            }
+
+            var rotated = await PostAsync(
+                $"api/lecturer/attendance/{sessionId}/rotate");
+
+            _sessionExpiresAt = sessionExpiry;
+
+            ApplyQrResponse(rotated, false);
+
+            SessionStatusText.Text =
+                $"Resumed attendance session #{sessionId}.";
+
+            ErrorText.Text = "";
+        }
         private void DisplayQr(string token)
         {
             using var generator = new QRCodeGenerator();
@@ -167,7 +221,9 @@ namespace CampusPulse.Admin
 
             try
             {
-                var result = await PostAsync(
+                SetAuthorization();
+
+                using var response = await _http.PostAsJsonAsync(
                     "api/lecturer/attendance/start",
                     new
                     {
@@ -175,7 +231,22 @@ namespace CampusPulse.Admin
                         DurationMinutes = duration
                     });
 
-                ApplyQrResponse(result, true);
+                if (response.StatusCode == HttpStatusCode.Conflict)
+                {
+                    await ResumeAttendanceAsync(timetableId);
+                }
+                else if (!response.IsSuccessStatusCode)
+                {
+                    throw new InvalidOperationException(
+                        $"Attendance request failed (HTTP {(int)response.StatusCode}).");
+                }
+                else
+                {
+                    using var document = JsonDocument.Parse(
+                        await response.Content.ReadAsStringAsync());
+
+                    ApplyQrResponse(document.RootElement, true);
+                }
             }
             catch (Exception ex)
             {
@@ -319,6 +390,82 @@ namespace CampusPulse.Admin
                     : ex is InvalidOperationException
                         ? ex.Message
                         : "An unexpected attendance error occurred.";
+        }
+
+        protected override async void OnClosing(CancelEventArgs e)
+        {
+            if (_closingAfterEnd || !_sessionId.HasValue)
+            {
+                base.OnClosing(e);
+                return;
+            }
+
+            e.Cancel = true;
+
+            if (_endingOnClose)
+                return;
+
+            if (_busy)
+            {
+                MessageBox.Show(
+                    this,
+                    "Please wait for the current attendance request to finish.",
+                    "CampusPulse",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                return;
+            }
+
+            var confirmation = MessageBox.Show(
+                this,
+                "An attendance session is still active. End attendance before closing this window?",
+                "End Attendance",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (confirmation != MessageBoxResult.Yes)
+                return;
+
+            _endingOnClose = true;
+            _busy = true;
+            EndButton.IsEnabled = false;
+            RotateButton.IsEnabled = false;
+            _timer.Stop();
+
+            try
+            {
+                await PostAsync(
+                    $"api/lecturer/attendance/{_sessionId.Value}/end");
+
+                _sessionId = null;
+                QrImage.Source = null;
+
+                _closingAfterEnd = true;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorText.Text = SafeError(ex);
+
+                MessageBox.Show(
+                    this,
+                    "Attendance could not be ended. The window will remain open. Please try again.",
+                    "CampusPulse",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                EndButton.IsEnabled = true;
+                RotateButton.IsEnabled = true;
+
+                if (DateTimeOffset.UtcNow < _sessionExpiresAt)
+                    _timer.Start();
+            }
+            finally
+            {
+                _busy = false;
+                _endingOnClose = false;
+            }
         }
 
         protected override void OnClosed(EventArgs e)
