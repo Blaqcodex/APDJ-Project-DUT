@@ -1,0 +1,153 @@
+<Window x:Class="CampusPulse.Admin.LecturerAnnouncementsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CampusPulse | Announcements"
+        Width="850"
+        Height="760"
+        MinWidth="650"
+        MinHeight="600"
+        WindowStartupLocation="CenterOwner"
+        Background="#F4F7FB">
+
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0,0,0,22">
+            <TextBlock Text="Announcements"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       Foreground="#172B4D"/>
+
+            <TextBlock Text="Send important updates to students enrolled in your modules."
+                       FontSize="14"
+                       Foreground="#718096"
+                       Margin="0,8,0,0"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto">
+
+            <StackPanel>
+
+                <Border Background="White"
+                        CornerRadius="12"
+                        Padding="25"
+                        Margin="0,0,0,20">
+
+                    <StackPanel>
+                        <TextBlock Text="Create Announcement"
+                                   FontSize="21"
+                                   FontWeight="SemiBold"
+                                   Foreground="#172B4D"
+                                   Margin="0,0,0,20"/>
+
+                        <TextBlock Text="Module"
+                                   FontWeight="SemiBold"
+                                   Foreground="#334155"/>
+
+                        <ComboBox x:Name="ModuleComboBox"
+                                  Height="40"
+                                  DisplayMemberPath="DisplayName"
+                                  SelectedValuePath="ModuleId"
+                                  Margin="0,8,0,18"/>
+
+                        <TextBlock Text="Title"
+                                   FontWeight="SemiBold"
+                                   Foreground="#334155"/>
+
+                        <TextBox x:Name="TitleTextBox"
+                                 Height="40"
+                                 MaxLength="150"
+                                 Padding="10,8"
+                                 Margin="0,8,0,18"/>
+
+                        <TextBlock Text="Message"
+                                   FontWeight="SemiBold"
+                                   Foreground="#334155"/>
+
+                        <TextBox x:Name="MessageTextBox"
+                                 Height="140"
+                                 MaxLength="5000"
+                                 Padding="10"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Margin="0,8,0,18"/>
+
+                        <Button x:Name="PublishButton"
+                                Content="Publish Announcement"
+                                Background="#2563EB"
+                                Foreground="White"
+                                BorderThickness="0"
+                                FontWeight="SemiBold"
+                                Height="44"
+                                Cursor="Hand"
+                                HorizontalAlignment="Left"
+                                Padding="20,0"
+                                Click="Publish_Click"/>
+
+                        <TextBlock x:Name="PublishStatusText"
+                                   Foreground="#64748B"
+                                   TextWrapping="Wrap"
+                                   Margin="0,15,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="White"
+                        CornerRadius="12"
+                        Padding="25">
+
+                    <StackPanel>
+                        <DockPanel Margin="0,0,0,15">
+                            <TextBlock Text="Published Announcements"
+                                       FontSize="20"
+                                       FontWeight="SemiBold"
+                                       Foreground="#172B4D"/>
+
+                            <Button Content="Refresh"
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right"
+                                    Padding="12,6"
+                                    Click="Refresh_Click"/>
+                        </DockPanel>
+
+                        <TextBlock x:Name="HistoryStatusText"
+                                   Foreground="#718096"
+                                   Margin="0,0,0,12"/>
+
+                        <DataGrid x:Name="AnnouncementsGrid"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  CanUserAddRows="False"
+                                  HeadersVisibility="Column"
+                                  MinHeight="180"
+                                  RowHeight="42">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Module"
+                                                    Binding="{Binding ModuleCode}"
+                                                    Width="110"/>
+
+                                <DataGridTextColumn Header="Title"
+                                                    Binding="{Binding Title}"
+                                                    Width="180"/>
+
+                                <DataGridTextColumn Header="Message"
+                                                    Binding="{Binding Message}"
+                                                    Width="*"/>
+
+                                <DataGridTextColumn Header="Published"
+                                                    Binding="{Binding CreatedAt, StringFormat={}{0:yyyy-MM-dd HH:mm}}"
+                                                    Width="150"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

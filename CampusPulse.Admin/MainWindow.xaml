@@ -71,6 +71,10 @@
                     <Button Content="Attendance"
                             Style="{StaticResource NavigationButton}"
                             Click="Attendance_Click"/>
+
+                    <Button Content="Announcements"
+                            Style="{StaticResource NavigationButton}"
+                            Click="Announcements_Click"/>
                 </StackPanel>
             </DockPanel>
         </Border>

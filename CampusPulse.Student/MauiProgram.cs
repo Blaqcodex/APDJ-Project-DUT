@@ -122,6 +122,20 @@ public static class MauiProgram
 #endif
                 client.Timeout = TimeSpan.FromSeconds(15);
             });
+        // Register authenticated student notification API requests.
+        builder.Services.AddHttpClient<
+            IStudentNotificationsApiService,
+            StudentNotificationsApiService>(client =>
+            {
+#if DEBUG
+                client.BaseAddress = new Uri(
+                    "http://10.0.2.2:5240/");
+#else
+                client.BaseAddress = new Uri(
+                    "https://api.example.com/");
+#endif
+                client.Timeout = TimeSpan.FromSeconds(15);
+            });
         // Register secure authentication session storage.
         builder.Services.AddSingleton<
             ISessionService,

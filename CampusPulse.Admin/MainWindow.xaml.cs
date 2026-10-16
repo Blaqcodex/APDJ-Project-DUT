@@ -153,6 +153,27 @@ namespace CampusPulse.Admin
             AttendancePanel.Visibility = Visibility.Visible;
         }
 
+        private void Announcements_Click(object sender, RoutedEventArgs e)
+        {
+            if (!LecturerSession.IsAuthenticated)
+            {
+                MessageBox.Show(
+                    "Please sign in before managing announcements.",
+                    "CampusPulse",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            var window = new LecturerAnnouncementsWindow
+            {
+                Owner = this
+            };
+
+            window.ShowDialog();
+        }
+
         private void StartAttendance_Click(object sender, RoutedEventArgs e)
         {
             if (!LecturerSession.IsAuthenticated)
