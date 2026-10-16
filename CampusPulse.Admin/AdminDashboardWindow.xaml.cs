@@ -30,6 +30,15 @@ namespace CampusPulse.Admin
 
             Close();
         }
+        private void OpenModules_Click(object sender, RoutedEventArgs e)
+        {
+            var modules = new AdminModulesWindow();
+
+            System.Windows.Application.Current.MainWindow = modules;
+            modules.Show();
+
+            Close();
+        }
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
             AdminSession.SignOut();

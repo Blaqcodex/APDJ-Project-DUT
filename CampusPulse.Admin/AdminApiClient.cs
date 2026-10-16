@@ -55,6 +55,66 @@ namespace CampusPulse.Admin
                 token,
                 $"{firstName} {lastName}".Trim());
         }
+        public async Task<System.Collections.Generic.List<AdminModuleRecord>> GetModulesAsync()
+        {
+            if (!AdminSession.IsAuthenticated)
+            {
+                throw new InvalidOperationException(
+                    "Administrator authentication is required.");
+            }
+
+            using var request = new HttpRequestMessage(
+                HttpMethod.Get, "api/admin/modules");
+
+            request.Headers.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue(
+                    "Bearer", AdminSession.Token);
+
+            using var response = await Http.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new AdminApiException(response.StatusCode);
+            }
+
+            var modules = await response.Content.ReadFromJsonAsync<
+                System.Collections.Generic.List<AdminModuleRecord>>();
+
+            return modules ?? new System.Collections.Generic.List<AdminModuleRecord>();
+        }
+
+        public async Task CreateModuleAsync(
+            string moduleCode,
+            string moduleName,
+            int programmeId)
+        {
+            if (!AdminSession.IsAuthenticated)
+            {
+                throw new InvalidOperationException(
+                    "Administrator authentication is required.");
+            }
+
+            using var request = new HttpRequestMessage(
+                HttpMethod.Post, "api/admin/modules");
+
+            request.Headers.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue(
+                    "Bearer", AdminSession.Token);
+
+            request.Content = JsonContent.Create(new
+            {
+                ModuleCode = moduleCode,
+                ModuleName = moduleName,
+                ProgrammeId = programmeId
+            });
+
+            using var response = await Http.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new AdminApiException(response.StatusCode);
+            }
+        }
         public async Task<System.Collections.Generic.List<AdminUserRecord>> GetUsersAsync(
             string? role = null)
         {
@@ -92,6 +152,13 @@ namespace CampusPulse.Admin
         }
     }
 
+    public sealed record AdminModuleRecord(
+        int ModuleId,
+        string ModuleCode,
+        string ModuleName,
+        int ProgrammeId,
+        string ProgrammeName,
+        string Faculty);
     public sealed record AdminLoginResult(
         string Token,
         string DisplayName);
