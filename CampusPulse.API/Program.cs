@@ -69,6 +69,35 @@ builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = async context =>
+            {
+                var userIdClaim = context.Principal?
+                    .FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?
+                    .Value;
+
+                if (!int.TryParse(userIdClaim, out var userId))
+                {
+                    context.Fail("Invalid account.");
+                    return;
+                }
+
+                var db = context.HttpContext.RequestServices
+                    .GetRequiredService<CampusPulseDbContext>();
+
+                var isActive = await db.Users
+                    .AsNoTracking()
+                    .AnyAsync(user =>
+                        user.UserId == userId &&
+                        user.IsActive);
+
+                if (!isActive)
+                {
+                    context.Fail("Account unavailable.");
+                }
+            }
+        };
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,

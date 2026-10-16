@@ -13,6 +13,7 @@ namespace CampusPulse.Admin
     {
         private readonly AdminApiClient _api = new();
         private List<AdminModuleRecord> _modules = new();
+        private List<AdminProgrammeRecord> _programmes = new();
         private bool _loaded;
 
         public AdminModulesWindow()
@@ -33,10 +34,70 @@ namespace CampusPulse.Admin
                 }
 
                 _loaded = true;
+                await LoadProgrammesAsync();
                 await LoadModulesAsync();
             };
         }
 
+        private async Task LoadProgrammesAsync()
+        {
+            ProgrammeInput.IsEnabled = false;
+
+            try
+            {
+                int? previousSelection =
+                    ProgrammeInput.SelectedValue is int selectedId
+                        ? selectedId
+                        : null;
+
+                _programmes = await _api.GetProgrammesAsync();
+
+                ProgrammeInput.ItemsSource = _programmes;
+
+                if (previousSelection.HasValue)
+                {
+                    ProgrammeInput.SelectedValue = previousSelection.Value;
+                }
+
+                if (ProgrammeInput.SelectedIndex < 0 &&
+                    _programmes.Count > 0)
+                {
+                    ProgrammeInput.SelectedIndex = 0;
+                }
+
+                FormStatusText.Text = _programmes.Count == 0
+                    ? "No programmes available. Add a programme first."
+                    : "";
+            }
+            catch (AdminApiException ex)
+                when (ex.StatusCode == HttpStatusCode.Unauthorized ||
+                      ex.StatusCode == HttpStatusCode.Forbidden)
+            {
+                _programmes.Clear();
+                ProgrammeInput.ItemsSource = null;
+                FormStatusText.Text =
+                    "Administrator authorization failed. Please sign in again.";
+            }
+            catch (HttpRequestException)
+            {
+                FormStatusText.Text =
+                    "Cannot load programmes. Check the CampusPulse API.";
+            }
+            catch (TaskCanceledException)
+            {
+                FormStatusText.Text =
+                    "Loading programmes timed out. Please try again.";
+            }
+            catch (Exception)
+            {
+                FormStatusText.Text =
+                    "Unable to load programmes. Please try again.";
+            }
+            finally
+            {
+                ProgrammeInput.IsEnabled = true;
+            }
+        }
         private async Task LoadModulesAsync()
         {
             RefreshButton.IsEnabled = false;
@@ -129,16 +190,16 @@ namespace CampusPulse.Admin
                 return;
             }
 
-            if (!int.TryParse(ProgrammeInput.Text.Trim(), out int programmeId) ||
+            if (ProgrammeInput.SelectedValue is not int programmeId ||
                 programmeId <= 0)
             {
                 FormStatusText.Text =
-                    "Enter a valid positive Programme ID.";
+                    "Select a valid programme.";
                 return;
             }
 
             var confirmation = MessageBox.Show(
-                $"Create module {code} ({name}) under Programme ID {programmeId}?",
+                $"Create module {code} ({name}) under programme {((AdminProgrammeRecord)ProgrammeInput.SelectedItem).ProgrammeName}?",
                 "Confirm New Module",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
@@ -157,9 +218,10 @@ namespace CampusPulse.Admin
 
                 CodeInput.Clear();
                 NameInput.Clear();
-                ProgrammeInput.Clear();
+
 
                 FormStatusText.Text = "Module created successfully.";
+                await LoadProgrammesAsync();
                 await LoadModulesAsync();
             }
             catch (AdminApiException ex)

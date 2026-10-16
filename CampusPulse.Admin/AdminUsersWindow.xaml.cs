@@ -14,6 +14,7 @@ namespace CampusPulse.Admin
         private readonly AdminApiClient _api = new();
         private List<AdminUserRecord> _users = new();
         private bool _loaded;
+        private bool _statusUpdateInProgress;
 
         public AdminUsersWindow()
         {
@@ -151,6 +152,131 @@ namespace CampusPulse.Admin
             await LoadUsersAsync();
         }
 
+        private async void Deactivate_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            await ChangeSelectedUserStatusAsync(false);
+        }
+
+        private async void Reactivate_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            await ChangeSelectedUserStatusAsync(true);
+        }
+
+        private async Task ChangeSelectedUserStatusAsync(bool isActive)
+        {
+            if (_statusUpdateInProgress)
+            {
+                return;
+            }
+
+            if (UsersGrid.SelectedItem is not AdminUserRecord user)
+            {
+                MessageBox.Show(
+                    "Select a user first.",
+                    "User Management",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                return;
+            }
+
+            if (user.IsActive == isActive)
+            {
+                MessageBox.Show(
+                    "This account already has the selected status.",
+                    "User Management",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                return;
+            }
+
+            string action = isActive ? "reactivate" : "deactivate";
+
+            var confirmation = MessageBox.Show(
+                $"Are you sure you want to {action} " +
+                $"{user.FirstName} {user.LastName} ({user.Email})?",
+                "Confirm Account Status",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (confirmation != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            _statusUpdateInProgress = true;
+            DeactivateButton.IsEnabled = false;
+            ReactivateButton.IsEnabled = false;
+
+            try
+            {
+                await _api.UpdateUserStatusAsync(
+                    user.UserId,
+                    isActive);
+
+                await LoadUsersAsync();
+
+                MessageBox.Show(
+                    $"Account successfully {(isActive ? "reactivated" : "deactivated")}.",
+                    "User Management",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            catch (AdminApiException ex)
+                when (ex.StatusCode == HttpStatusCode.Conflict)
+            {
+                MessageBox.Show(
+                    "This action was blocked by an administrator safety rule.",
+                    "User Management",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+            catch (AdminApiException ex)
+                when (ex.StatusCode == HttpStatusCode.Unauthorized ||
+                      ex.StatusCode == HttpStatusCode.Forbidden)
+            {
+                MessageBox.Show(
+                    "Your administrator session is no longer authorized. Please sign in again.",
+                    "User Management",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show(
+                    "Cannot connect to CampusPulse API.",
+                    "User Management",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            catch (TaskCanceledException)
+            {
+                MessageBox.Show(
+                    "The request timed out. Please try again.",
+                    "User Management",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Unable to update the account status.",
+                    "User Management",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            finally
+            {
+                _statusUpdateInProgress = false;
+                DeactivateButton.IsEnabled = true;
+                ReactivateButton.IsEnabled = true;
+            }
+        }
         private void Back_Click(
             object sender,
             RoutedEventArgs e)

@@ -30,6 +30,11 @@ namespace CampusPulse.Application.Services
                 user.PasswordHash
             );
 
+            if (!user.IsActive)
+            {
+                return null;
+            }
+
             if (!passwordValid)
             {
                 return null;

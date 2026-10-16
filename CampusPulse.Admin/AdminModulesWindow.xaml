@@ -150,7 +150,7 @@
                                    Foreground="#172B4D"
                                    Margin="0,0,0,8"/>
 
-                        <TextBlock Text="Use an existing Programme ID. Module codes must be unique within that programme."
+                        <TextBlock Text="Select an existing programme. Module codes must be unique within that programme."
                                    TextWrapping="Wrap"
                                    Foreground="#718096"
                                    Margin="0,0,0,20"/>
@@ -173,13 +173,14 @@
                                  Padding="9,5"
                                  Margin="0,0,0,18"/>
 
-                        <TextBlock Text="Programme ID"
+                        <TextBlock Text="Programme"
                                    FontWeight="SemiBold"
                                    Margin="0,0,0,7"/>
-                        <TextBox x:Name="ProgrammeInput"
-                                 Height="36"
-                                 Padding="9,5"
-                                 Margin="0,0,0,20"/>
+                        <ComboBox x:Name="ProgrammeInput"
+                                  Height="36"
+                                  DisplayMemberPath="DisplayName"
+                                  SelectedValuePath="ProgrammeId"
+                                  Margin="0,0,0,20"/>
 
                         <Button x:Name="AddButton"
                                 Content="Add Module"

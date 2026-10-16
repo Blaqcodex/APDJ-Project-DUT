@@ -118,6 +118,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock x:Name="StatusText"
@@ -159,11 +160,39 @@
                                                 Binding="{Binding Role}"
                                                 Width="110"/>
 
+                            <DataGridTextColumn Header="Status"
+                                                Binding="{Binding AccountStatus}"
+                                                Width="100"/>
                             <DataGridTextColumn Header="Created"
                                                 Binding="{Binding CreatedAt, StringFormat={}{0:yyyy-MM-dd}}"
                                                 Width="120"/>
                         </DataGrid.Columns>
                     </DataGrid>
+                    <StackPanel Grid.Row="2"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0,15,0,0">
+
+                        <Button x:Name="DeactivateButton" Content="Deactivate Selected"
+                                Width="165"
+                                Height="38"
+                                Margin="0,0,12,0"
+                                Background="#DC2626"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Cursor="Hand"
+                                Click="Deactivate_Click"/>
+
+                        <Button x:Name="ReactivateButton" Content="Reactivate Selected"
+                                Width="165"
+                                Height="38"
+                                Background="#15803D"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Cursor="Hand"
+                                Click="Reactivate_Click"/>
+
+                    </StackPanel>
                 </Grid>
             </Border>
         </Grid>

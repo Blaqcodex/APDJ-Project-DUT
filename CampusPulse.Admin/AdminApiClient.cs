@@ -55,6 +55,64 @@ namespace CampusPulse.Admin
                 token,
                 $"{firstName} {lastName}".Trim());
         }
+        public async Task<System.Collections.Generic.List<AdminProgrammeRecord>> GetProgrammesAsync()
+        {
+            if (!AdminSession.IsAuthenticated)
+            {
+                throw new InvalidOperationException(
+                    "Administrator authentication is required.");
+            }
+
+            using var request = new HttpRequestMessage(
+                HttpMethod.Get, "api/admin/programmes");
+
+            request.Headers.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue(
+                    "Bearer", AdminSession.Token);
+
+            using var response = await Http.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new AdminApiException(response.StatusCode);
+            }
+
+            var programmes = await response.Content.ReadFromJsonAsync<
+                System.Collections.Generic.List<AdminProgrammeRecord>>();
+
+            return programmes ?? new System.Collections.Generic.List<AdminProgrammeRecord>();
+        }
+
+        public async Task CreateProgrammeAsync(
+            string programmeName,
+            string faculty)
+        {
+            if (!AdminSession.IsAuthenticated)
+            {
+                throw new InvalidOperationException(
+                    "Administrator authentication is required.");
+            }
+
+            using var request = new HttpRequestMessage(
+                HttpMethod.Post, "api/admin/programmes");
+
+            request.Headers.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue(
+                    "Bearer", AdminSession.Token);
+
+            request.Content = JsonContent.Create(new
+            {
+                ProgrammeName = programmeName,
+                Faculty = faculty
+            });
+
+            using var response = await Http.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new AdminApiException(response.StatusCode);
+            }
+        }
         public async Task<System.Collections.Generic.List<AdminModuleRecord>> GetModulesAsync()
         {
             if (!AdminSession.IsAuthenticated)
@@ -115,6 +173,36 @@ namespace CampusPulse.Admin
                 throw new AdminApiException(response.StatusCode);
             }
         }
+        public async Task UpdateUserStatusAsync(
+            int userId,
+            bool isActive)
+        {
+            if (!AdminSession.IsAuthenticated)
+            {
+                throw new InvalidOperationException(
+                    "Administrator authentication is required.");
+            }
+
+            using var request = new HttpRequestMessage(
+                HttpMethod.Patch,
+                $"api/admin/users/{userId}/status");
+
+            request.Headers.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue(
+                    "Bearer", AdminSession.Token);
+
+            request.Content = JsonContent.Create(new
+            {
+                IsActive = isActive
+            });
+
+            using var response = await Http.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new AdminApiException(response.StatusCode);
+            }
+        }
         public async Task<System.Collections.Generic.List<AdminUserRecord>> GetUsersAsync(
             string? role = null)
         {
@@ -152,6 +240,14 @@ namespace CampusPulse.Admin
         }
     }
 
+    public sealed record AdminProgrammeRecord(
+        int ProgrammeId,
+        string ProgrammeName,
+        string Faculty)
+    {
+        public string DisplayName =>
+            $"{ProgrammeName}  |  {Faculty}";
+    }
     public sealed record AdminModuleRecord(
         int ModuleId,
         string ModuleCode,
@@ -169,7 +265,11 @@ namespace CampusPulse.Admin
         string LastName,
         string Email,
         string Role,
-        DateTime CreatedAt);
+        DateTime CreatedAt,
+        bool IsActive)
+    {
+        public string AccountStatus => IsActive ? "Active" : "Inactive";
+    }
 
     public sealed class AdminApiException : Exception
     {

@@ -23,6 +23,9 @@ namespace CampusPulse.Domain.Entities
 
         public string Role { get; set; } = "";
 
+        // Deactivated accounts cannot authenticate or access protected APIs.
+        public bool IsActive { get; set; } = true;
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
