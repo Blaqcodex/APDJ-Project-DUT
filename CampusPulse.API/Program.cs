@@ -13,6 +13,17 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ADMIN_PROVISIONING_EARLY_GUARD
+// Reject provisioning outside Development before JWT configuration is read.
+if (args.Contains("--provision-admin", StringComparer.Ordinal) &&
+    !builder.Environment.IsDevelopment())
+{
+    Console.Error.WriteLine(
+        "Admin provisioning is available only in Development.");
+    Environment.ExitCode = 1;
+    return;
+}
+
 // Database connection
 var connectionString = builder.Configuration
     .GetConnectionString("CampusPulseDatabase");
@@ -125,6 +136,14 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+if (args.Contains("--provision-admin", StringComparer.Ordinal))
+{
+    Environment.ExitCode = await AdminProvisioning.RunAsync(
+        app.Services,
+        app.Environment);
+    return;
+}
 
 if (app.Environment.IsDevelopment())
 {
