@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace CampusPulse.Domain.Entities
 {
@@ -9,6 +9,8 @@ namespace CampusPulse.Domain.Entities
         public string Title { get; set; } = "";
 
         public string Message { get; set; } = "";
+
+        public int? ModuleId { get; set; }
 
         public int CreatedByUserId { get; set; }
 

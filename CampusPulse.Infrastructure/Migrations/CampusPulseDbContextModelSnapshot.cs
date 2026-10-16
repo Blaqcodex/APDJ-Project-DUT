@@ -39,10 +39,15 @@ namespace CampusPulse.Infrastructure.Migrations
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ModuleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AnnouncementId");
+
+                    b.HasIndex("ModuleId");
 
                     b.ToTable("Announcements");
                 });
@@ -463,6 +468,14 @@ namespace CampusPulse.Infrastructure.Migrations
                     b.HasKey("VenueId");
 
                     b.ToTable("Venues");
+                });
+
+            modelBuilder.Entity("CampusPulse.Domain.Entities.Announcement", b =>
+                {
+                    b.HasOne("CampusPulse.Domain.Entities.Module", null)
+                        .WithMany()
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("CampusPulse.Domain.Entities.AttendanceRecord", b =>
