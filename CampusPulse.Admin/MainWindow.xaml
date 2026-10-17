@@ -253,18 +253,30 @@
                                                             Binding="{Binding Campus}"
                                                             Width="110"/>
 
-                                        <DataGridTemplateColumn Header="Attendance"
-                                                                Width="140">
+                                        <DataGridTemplateColumn Header="Attendance / Analytics"
+                                                                Width="270">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <Button Content="Start Attendance"
-                                                            Background="#2563EB"
-                                                            Foreground="White"
-                                                            BorderThickness="0"
-                                                            Padding="8,7"
-                                                            Cursor="Hand"
-                                                            Tag="{Binding TimetableId}"
-                                                            Click="StartClassAttendance_Click"/>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button Content="Start Attendance"
+                                                                Background="#2563EB"
+                                                                Foreground="White"
+                                                                BorderThickness="0"
+                                                                Padding="8,7"
+                                                                Margin="0,0,6,0"
+                                                                Cursor="Hand"
+                                                                Tag="{Binding TimetableId}"
+                                                                Click="StartClassAttendance_Click"/>
+
+                                                        <Button Content="View Analytics"
+                                                                Background="#0F766E"
+                                                                Foreground="White"
+                                                                BorderThickness="0"
+                                                                Padding="8,7"
+                                                                Cursor="Hand"
+                                                                Tag="{Binding ModuleId}"
+                                                                Click="ViewClassAnalytics_Click"/>
+                                                    </StackPanel>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>

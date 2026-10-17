@@ -145,6 +145,41 @@ namespace CampusPulse.Admin
             window.ShowDialog();
         }
 
+        private void ViewClassAnalytics_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            if (!LecturerSession.IsAuthenticated)
+            {
+                MessageBox.Show(
+                    "Please sign in to view attendance analytics.",
+                    "CampusPulse",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            if (sender is not Button button ||
+                button.Tag is not int moduleId ||
+                moduleId <= 0)
+            {
+                MessageBox.Show(
+                    "This class does not have a valid module ID.",
+                    "CampusPulse",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            var window = new LecturerAttendanceAnalyticsWindow(moduleId)
+            {
+                Owner = this
+            };
+
+            window.ShowDialog();
+        }
         private void Attendance_Click(object sender, RoutedEventArgs e)
         {
             PageHeading.Text = "Attendance";
@@ -199,6 +234,9 @@ namespace CampusPulse.Admin
     {
         [JsonPropertyName("timetableId")]
         public int TimetableId { get; set; }
+
+        [JsonPropertyName("moduleId")]
+        public int ModuleId { get; set; }
 
         [JsonPropertyName("moduleCode")]
         public string ModuleCode { get; set; } = "";
