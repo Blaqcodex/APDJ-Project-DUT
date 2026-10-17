@@ -48,6 +48,7 @@ namespace CampusPulse.API.Controllers
                 select new
                 {
                     timetableId = timetable.TimetableId,
+                    moduleId = timetable.ModuleId,
                     moduleCode = module.ModuleCode,
                     moduleName = module.ModuleName,
                     dayOfWeek = timetable.DayOfWeek.ToString(),
