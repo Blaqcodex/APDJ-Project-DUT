@@ -153,6 +153,13 @@ namespace CampusPulse.Infrastructure.Data
             modelBuilder.Entity<AttendanceRecord>()
                 .HasIndex(a => new { a.AttendanceSessionId, a.StudentId })
                 .IsUnique();
+            // Announcement -> Module.
+            // Nullable to preserve announcements created before module tracking.
+            modelBuilder.Entity<Announcement>()
+                .HasOne<Module>()
+                .WithMany()
+                .HasForeignKey(a => a.ModuleId)
+                .OnDelete(DeleteBehavior.Restrict);
             // User → Notification
             modelBuilder.Entity<Notification>()
                 .HasOne<User>()
