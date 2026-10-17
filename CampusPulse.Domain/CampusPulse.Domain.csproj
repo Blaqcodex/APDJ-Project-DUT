@@ -46,6 +46,7 @@
     <Compile Include="Entities\AttendanceSession.cs" />
     <Compile Include="Entities\Institution.cs" />
     <Compile Include="Entities\Lecturer.cs" />
+    <Compile Include="Entities\LecturerModule.cs" />
     <Compile Include="Entities\Module.cs" />
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\PasswordResetToken.cs" />

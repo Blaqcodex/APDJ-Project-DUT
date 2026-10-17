@@ -48,6 +48,17 @@ namespace CampusPulse.Admin
 
             Close();
         }
+        private void OpenLecturerAssignments_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            var assignments = new AdminLecturerAssignmentsWindow();
+
+            System.Windows.Application.Current.MainWindow = assignments;
+            assignments.Show();
+
+            Close();
+        }
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
             AdminSession.SignOut();

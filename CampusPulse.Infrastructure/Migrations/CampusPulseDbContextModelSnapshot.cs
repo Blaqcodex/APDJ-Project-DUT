@@ -170,6 +170,30 @@ namespace CampusPulse.Infrastructure.Migrations
                     b.ToTable("Lecturers");
                 });
 
+            modelBuilder.Entity("CampusPulse.Domain.Entities.LecturerModule", b =>
+                {
+                    b.Property<int>("LecturerModuleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LecturerModuleId"));
+
+                    b.Property<int>("LecturerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LecturerModuleId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.HasIndex("LecturerId", "ModuleId")
+                        .IsUnique();
+
+                    b.ToTable("LecturerModules");
+                });
+
             modelBuilder.Entity("CampusPulse.Domain.Entities.Module", b =>
                 {
                     b.Property<int>("ModuleId")
@@ -511,6 +535,21 @@ namespace CampusPulse.Infrastructure.Migrations
                         .WithOne()
                         .HasForeignKey("CampusPulse.Domain.Entities.Lecturer", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CampusPulse.Domain.Entities.LecturerModule", b =>
+                {
+                    b.HasOne("CampusPulse.Domain.Entities.Lecturer", null)
+                        .WithMany()
+                        .HasForeignKey("LecturerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CampusPulse.Domain.Entities.Module", null)
+                        .WithMany()
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

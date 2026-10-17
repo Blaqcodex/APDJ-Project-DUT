@@ -21,6 +21,7 @@ namespace CampusPulse.Infrastructure.Data
         public DbSet<Programme> Programmes { get; set; }
         public DbSet<Module> Modules { get; set; }
         public DbSet<StudentModule> StudentModules { get; set; }
+        public DbSet<LecturerModule> LecturerModules { get; set; }
         public DbSet<Venue> Venues { get; set; }
         public DbSet<Timetable> Timetables { get; set; }
         public DbSet<AttendanceSession> AttendanceSessions { get; set; }
@@ -113,6 +114,24 @@ namespace CampusPulse.Infrastructure.Data
                 .WithMany()
                 .HasForeignKey(t => t.ModuleId);
 
+                        // Lecturer -> LecturerModule
+            modelBuilder.Entity<LecturerModule>()
+                .HasOne<Lecturer>()
+                .WithMany()
+                .HasForeignKey(lm => lm.LecturerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Module -> LecturerModule
+            modelBuilder.Entity<LecturerModule>()
+                .HasOne<Module>()
+                .WithMany()
+                .HasForeignKey(lm => lm.ModuleId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Prevent assigning the same lecturer to the same module twice.
+            modelBuilder.Entity<LecturerModule>()
+                .HasIndex(lm => new { lm.LecturerId, lm.ModuleId })
+                .IsUnique();
             // Module → Timetable
             modelBuilder.Entity<Timetable>()
                 .HasOne<Module>()

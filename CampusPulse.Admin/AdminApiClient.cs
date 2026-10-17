@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CampusPulse.Admin
 {
-    public sealed class AdminApiClient
+    public sealed partial class AdminApiClient
     {
         private static readonly HttpClient Http = new()
         {
