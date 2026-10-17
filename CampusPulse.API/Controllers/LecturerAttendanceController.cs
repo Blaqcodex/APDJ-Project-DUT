@@ -27,6 +27,48 @@ public class LecturerAttendanceController : ControllerBase
         this.db = db;
     }
 
+    [HttpGet("active/{timetableId:int}")]
+    public async Task<IActionResult> GetActive(int timetableId)
+    {
+        if (timetableId <= 0)
+            return BadRequest(new { message = "Invalid timetable ID." });
+
+        var lecturer = await GetLecturerAsync();
+
+        if (lecturer == null)
+            return Unauthorized();
+
+        bool ownsTimetable = await db.Timetables.AnyAsync(t =>
+            t.TimetableId == timetableId &&
+            t.LecturerId == lecturer.LecturerId);
+
+        if (!ownsTimetable)
+            return Forbid();
+
+        DateTime now = DateTime.UtcNow;
+
+        var session = await db.AttendanceSessions
+            .AsNoTracking()
+            .Where(s =>
+                s.TimetableId == timetableId &&
+                s.Status == "Active" &&
+                s.ExpiresAt > now)
+            .OrderByDescending(s => s.StartedAt)
+            .Select(s => new
+            {
+                sessionId = s.AttendanceSessionId,
+                sessionExpiresAt = s.ExpiresAt
+            })
+            .FirstOrDefaultAsync();
+
+        if (session == null)
+            return NotFound(new
+            {
+                message = "No active attendance session exists."
+            });
+
+        return Ok(session);
+    }
     [HttpPost("start")]
     public async Task<IActionResult> Start(
         [FromBody] StartAttendanceRequest request)
