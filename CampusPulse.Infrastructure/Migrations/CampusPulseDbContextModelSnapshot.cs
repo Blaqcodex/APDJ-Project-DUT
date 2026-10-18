@@ -396,7 +396,8 @@ namespace CampusPulse.Infrastructure.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("StudentId", "ModuleId")
+                        .IsUnique();
 
                     b.ToTable("StudentModules");
                 });
