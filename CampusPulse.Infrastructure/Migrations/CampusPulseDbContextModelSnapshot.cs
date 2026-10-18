@@ -462,6 +462,9 @@ namespace CampusPulse.Infrastructure.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("MustChangePassword")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 

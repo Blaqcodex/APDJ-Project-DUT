@@ -70,6 +70,17 @@ namespace CampusPulse.Admin
 
             Close();
         }
+        private void OpenLecturerProvisioning_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            var provisioning = new AdminLecturerProvisioningWindow();
+
+            System.Windows.Application.Current.MainWindow = provisioning;
+            provisioning.Show();
+
+            Close();
+        }
 
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
