@@ -114,6 +114,11 @@ namespace CampusPulse.Infrastructure.Data
                 .WithMany()
                 .HasForeignKey(t => t.ModuleId);
 
+            // Prevent duplicate enrolments for the same student and module.
+            modelBuilder.Entity<StudentModule>()
+                .HasIndex(sm => new { sm.StudentId, sm.ModuleId })
+                .IsUnique();
+
                         // Lecturer -> LecturerModule
             modelBuilder.Entity<LecturerModule>()
                 .HasOne<Lecturer>()

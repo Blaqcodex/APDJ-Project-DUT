@@ -40,11 +40,25 @@ namespace CampusPulse.Admin
                     result.DisplayName);
 
                 PasswordInput.Clear();
+                if (result.MustChangePassword)
+                {
+                    var changePasswordWindow =
+                        new LecturerChangePasswordWindow();
 
-                var dashboard = new MainWindow();
+                    System.Windows.Application.Current.MainWindow =
+                        changePasswordWindow;
 
-                System.Windows.Application.Current.MainWindow = dashboard;
-                dashboard.Show();
+                    changePasswordWindow.Show();
+                }
+                else
+                {
+                    var dashboard = new MainWindow();
+
+                    System.Windows.Application.Current.MainWindow =
+                        dashboard;
+
+                    dashboard.Show();
+                }
 
                 Close();
             }

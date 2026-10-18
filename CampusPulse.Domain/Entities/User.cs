@@ -26,6 +26,10 @@ namespace CampusPulse.Domain.Entities
         // Deactivated accounts cannot authenticate or access protected APIs.
         public bool IsActive { get; set; } = true;
 
+        // Newly provisioned accounts must replace their temporary
+        // password before accessing normal lecturer features.
+        public bool MustChangePassword { get; set; } = false;
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

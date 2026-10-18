@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -35,4 +35,9 @@
     <ProjectReference Include="..\CampusPulse.Infrastructure\CampusPulse.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="appsettings.Local.json"
+          CopyToOutputDirectory="PreserveNewest"
+          Condition="Exists('appsettings.Local.json')" />
+  </ItemGroup>
 </Project>

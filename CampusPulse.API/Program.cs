@@ -184,6 +184,71 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseRateLimiter();
+
+// LECTURER_FIRST_LOGIN_PASSWORD_GATE
+app.Use(async (context, next) =>
+{
+    var principal = context.User;
+
+    if (principal.Identity?.IsAuthenticated == true &&
+        principal.IsInRole("Lecturer"))
+    {
+        var path = context.Request.Path;
+
+        bool isLecturerApi = path.StartsWithSegments(
+            "/api/lecturer",
+            StringComparison.OrdinalIgnoreCase);
+
+        bool isPasswordChangeEndpoint =
+            path.Equals(
+                "/api/lecturer/auth/change-password",
+                StringComparison.OrdinalIgnoreCase) &&
+            HttpMethods.IsPost(context.Request.Method);
+
+        if (isLecturerApi && !isPasswordChangeEndpoint)
+        {
+            var userIdValue = principal.FindFirst(
+                System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userIdValue, out var userId))
+            {
+                context.Response.StatusCode =
+                    StatusCodes.Status401Unauthorized;
+
+                return;
+            }
+
+            var db = context.RequestServices
+                .GetRequiredService<CampusPulseDbContext>();
+
+            bool mustChangePassword = await db.Users
+                .AsNoTracking()
+                .AnyAsync(user =>
+                    user.UserId == userId &&
+                    user.IsActive &&
+                    user.Role == "Lecturer" &&
+                    user.MustChangePassword);
+
+            if (mustChangePassword)
+            {
+                context.Response.StatusCode =
+                    StatusCodes.Status403Forbidden;
+
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    message = "Password change required before accessing lecturer features.",
+                    code = "PASSWORD_CHANGE_REQUIRED",
+                    mustChangePassword = true
+                });
+
+                return;
+            }
+        }
+    }
+
+    await next(context);
+});
+
 app.UseAuthorization();
 
 app.MapControllers();

@@ -3,3 +3,6 @@ bin/
 obj/
 *.user
 *.suo
+
+# Local CampusPulse Admin API configuration
+/CampusPulse.Admin/appsettings.Local.json

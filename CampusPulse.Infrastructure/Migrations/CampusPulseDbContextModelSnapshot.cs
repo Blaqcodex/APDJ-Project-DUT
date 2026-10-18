@@ -396,7 +396,8 @@ namespace CampusPulse.Infrastructure.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("StudentId", "ModuleId")
+                        .IsUnique();
 
                     b.ToTable("StudentModules");
                 });
@@ -460,6 +461,9 @@ namespace CampusPulse.Infrastructure.Migrations
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("MustChangePassword")
+                        .HasColumnType("bit");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
