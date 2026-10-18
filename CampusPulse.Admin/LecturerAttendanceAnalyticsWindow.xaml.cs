@@ -16,7 +16,7 @@ namespace CampusPulse.Admin
     {
         private static readonly HttpClient Http = new()
         {
-            BaseAddress = new Uri("http://localhost:5240/")
+            BaseAddress = App.ApiBaseAddress
         };
 
         private readonly int _moduleId;

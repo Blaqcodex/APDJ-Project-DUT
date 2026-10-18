@@ -9,7 +9,7 @@ namespace CampusPulse.Admin
     {
         private static readonly HttpClient Http = new()
         {
-            BaseAddress = new System.Uri("http://localhost:5240/"),
+            BaseAddress = App.ApiBaseAddress,
             Timeout = System.TimeSpan.FromSeconds(15)
         };
 
