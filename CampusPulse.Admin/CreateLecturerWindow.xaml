@@ -1,0 +1,94 @@
+﻿<Window x:Class="CampusPulse.Admin.CreateLecturerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CampusPulse | Create Lecturer"
+        Width="560"
+        Height="730"
+        MinWidth="500"
+        MinHeight="650"
+        WindowStartupLocation="CenterOwner"
+        Background="#F4F7FB">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32">
+
+            <TextBlock Text="Create Lecturer Account"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       Foreground="#172B4D"/>
+
+            <TextBlock Text="Register a lecturer for the CampusPulse Lecturer Portal."
+                       Foreground="#718096"
+                       Margin="0,8,0,24"
+                       TextWrapping="Wrap"/>
+
+            <TextBlock Text="First name"/>
+            <TextBox x:Name="FirstNameInput"
+                     Height="36"
+                     Margin="0,6,0,14"
+                     Padding="8"/>
+
+            <TextBlock Text="Last name"/>
+            <TextBox x:Name="LastNameInput"
+                     Height="36"
+                     Margin="0,6,0,14"
+                     Padding="8"/>
+
+            <TextBlock Text="Email address"/>
+            <TextBox x:Name="EmailInput"
+                     Height="36"
+                     Margin="0,6,0,14"
+                     Padding="8"/>
+
+            <TextBlock Text="Staff number"/>
+            <TextBox x:Name="StaffNumberInput"
+                     Height="36"
+                     Margin="0,6,0,14"
+                     Padding="8"/>
+
+            <TextBlock Text="Department"/>
+            <TextBox x:Name="DepartmentInput"
+                     Height="36"
+                     Margin="0,6,0,14"
+                     Padding="8"/>
+
+            <TextBlock Text="Temporary password (8–128 characters)"/>
+            <PasswordBox x:Name="PasswordInput"
+                         Height="36"
+                         Margin="0,6,0,14"
+                         Padding="8"/>
+
+            <TextBlock Text="Confirm password"/>
+            <PasswordBox x:Name="ConfirmPasswordInput"
+                         Height="36"
+                         Margin="0,6,0,14"
+                         Padding="8"/>
+
+            <TextBlock x:Name="FormStatusText"
+                       Foreground="#DC2626"
+                       TextWrapping="Wrap"
+                       Margin="0,4,0,14"/>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+
+                <Button Content="Cancel"
+                        Width="100"
+                        Height="40"
+                        Margin="0,0,12,0"
+                        Click="Cancel_Click"/>
+
+                <Button x:Name="CreateButton"
+                        Content="Create Lecturer"
+                        Width="155"
+                        Height="40"
+                        Background="#2563EB"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Click="Create_Click"/>
+
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</Window>

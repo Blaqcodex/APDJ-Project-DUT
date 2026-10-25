@@ -1,4 +1,4 @@
-<Window x:Class="CampusPulse.Admin.AdminUsersWindow"
+﻿<Window x:Class="CampusPulse.Admin.AdminUsersWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="CampusPulse | User Management"
@@ -44,6 +44,16 @@
             </Grid.RowDefinitions>
 
             <StackPanel>
+                <Button Content="Create Lecturer"
+        Width="155"
+        Height="38"
+        HorizontalAlignment="Right"
+        Background="#2563EB"
+        Foreground="White"
+        BorderThickness="0"
+        Cursor="Hand"
+        Click="CreateLecturer_Click"/>
+
                 <TextBlock Text="Registered Users"
                            FontSize="30"
                            FontWeight="Bold"

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -277,6 +277,21 @@ namespace CampusPulse.Admin
                 ReactivateButton.IsEnabled = true;
             }
         }
+        private async void CreateLecturer_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            var window = new CreateLecturerWindow
+            {
+                Owner = this
+            };
+
+            if (window.ShowDialog() == true)
+            {
+                await LoadUsersAsync();
+            }
+        }
+
         private void Back_Click(
             object sender,
             RoutedEventArgs e)
