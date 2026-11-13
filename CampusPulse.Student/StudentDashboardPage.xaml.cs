@@ -217,6 +217,6 @@ public partial class StudentDashboardPage : ContentPage
         TappedEventArgs e)
     {
         await Shell.Current.GoToAsync(
-            "//StudentTabs/StudentAlerts");
+            nameof(StudentNotificationsPage));
     }
 }

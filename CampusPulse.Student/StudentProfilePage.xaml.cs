@@ -6,6 +6,7 @@ public partial class StudentProfilePage : ContentPage
 {
     private readonly ISessionService sessionService;
     private readonly IStudentProfileApiService profileService;
+    private readonly IStudentNotificationsApiService? notificationsService;
 
     public StudentProfilePage()
     {
@@ -19,6 +20,8 @@ public partial class StudentProfilePage : ContentPage
             .Services.GetRequiredService<ISessionService>()
             ?? throw new InvalidOperationException(
                 "Session service is unavailable.");
+        notificationsService = IPlatformApplication.Current?
+            .Services.GetService<IStudentNotificationsApiService>();
     }
 
     protected override async void OnAppearing()
@@ -80,7 +83,45 @@ public partial class StudentProfilePage : ContentPage
             ProfileLoadingIndicator.IsRunning = false;
             ProfileLoadingIndicator.IsVisible = false;
         }
+
+        await RefreshNotificationsBadgeAsync();
     }
+
+    private async Task RefreshNotificationsBadgeAsync()
+    {
+        if (notificationsService is null)
+        {
+            NotificationsBadgeLabel.IsVisible = false;
+            return;
+        }
+
+        try
+        {
+            int unreadCount = await notificationsService.GetUnreadCountAsync();
+
+            if (unreadCount > 0)
+            {
+                NotificationsBadgeLabel.Text = unreadCount == 1
+                    ? "1 unread"
+                    : $"{unreadCount} unread";
+                NotificationsBadgeLabel.IsVisible = true;
+            }
+            else
+            {
+                NotificationsBadgeLabel.IsVisible = false;
+            }
+        }
+        catch (Exception)
+        {
+            NotificationsBadgeLabel.IsVisible = false;
+        }
+    }
+
+    private async void OnNotificationsTapped(object? sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(StudentNotificationsPage));
+    }
+
     private async void OnHelpSupportTapped(
         object? sender,
         TappedEventArgs e)

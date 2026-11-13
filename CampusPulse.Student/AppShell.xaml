@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="CampusPulse.Student.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -45,10 +45,10 @@
             Route="StudentScan"
             ContentTemplate="{DataTemplate local:StudentQrScannerPage}" />
 
-        <ShellContent Icon="icon_alerts.png"
-            Title="Alerts"
-            Route="StudentAlerts"
-            ContentTemplate="{DataTemplate local:StudentNotificationsPage}" />
+        <ShellContent Icon="icon_learn.png"
+            Title="Learn"
+            Route="StudentLearn"
+            ContentTemplate="{DataTemplate local:StudentLearnPage}" />
 
         <ShellContent Icon="icon_profile.png"
             Title="Profile"

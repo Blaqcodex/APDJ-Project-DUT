@@ -21,6 +21,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(StudentSettingsPage), typeof(StudentSettingsPage));
 
         Routing.RegisterRoute(nameof(StudentHelpSupportPage), typeof(StudentHelpSupportPage));
+        Routing.RegisterRoute(nameof(StudentNotificationsPage), typeof(StudentNotificationsPage));
 
         Navigating += OnShellNavigating;
     }

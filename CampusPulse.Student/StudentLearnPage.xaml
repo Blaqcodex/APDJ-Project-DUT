@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CampusPulse.Student.StudentLearnPage"
+    BackgroundColor="{AppThemeBinding Dark=#101027, Light=#F7F7FC}"
+    Title="Learn">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24,32" Spacing="22">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="DIGITAL CAMPUS"
+                       FontSize="13"
+                       CharacterSpacing="2"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
+
+                <Label Text="CampusPulse Learn"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+
+                <Label Text="Module notes, past papers, AI summaries and practice quizzes."
+                       FontSize="14"
+                       TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+            </VerticalStackLayout>
+
+            <!-- 1. Continue Learning -->
+            <Border BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                    Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
+                    StrokeThickness="1"
+                    Padding="20"
+                    StrokeShape="RoundRectangle 20">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="CONTINUE LEARNING"
+                           FontSize="12"
+                           CharacterSpacing="1.5"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
+                    <Label Text="Ready for your modules"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+                    <Label Text="Your recently opened lecture notes and study guides will appear here once learning content is connected."
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 2. My Modules -->
+            <Label Text="MY MODULES"
+                   FontSize="13"
+                   CharacterSpacing="1.5"
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Dark=#D0C9E6, Light=#44425F}" />
+
+            <Border BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                    Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
+                    StrokeThickness="1"
+                    Padding="20"
+                    StrokeShape="RoundRectangle 20">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Assigned Academic Modules"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+                    <Label Text="Your registered DUT modules will load automatically from your student enrollment."
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 3. Recent Notes -->
+            <Label Text="RECENT NOTES"
+                   FontSize="13"
+                   CharacterSpacing="1.5"
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Dark=#D0C9E6, Light=#44425F}" />
+
+            <Border BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                    Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
+                    StrokeThickness="1"
+                    Padding="20"
+                    StrokeShape="RoundRectangle 20">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="No lecture materials uploaded yet"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+                    <Label Text="PDF notes, past papers, memorandums and video lessons published by your lecturers will appear here."
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 4. My Progress & 5. Saved for Offline -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="14">
+                <Border Grid.Column="0"
+                        BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                        Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
+                        StrokeThickness="1"
+                        Padding="18"
+                        StrokeShape="RoundRectangle 18">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="MY PROGRESS"
+                               FontSize="11"
+                               CharacterSpacing="1"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
+                        <Label Text="0 Completed"
+                               FontSize="17"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+                        <Label Text="Notes &amp; quizzes"
+                               FontSize="12"
+                               TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="1"
+                        BackgroundColor="{AppThemeBinding Dark=#242342, Light=#FFFFFF}"
+                        Stroke="{AppThemeBinding Dark=#38365C, Light=#E4E3F0}"
+                        StrokeThickness="1"
+                        Padding="18"
+                        StrokeShape="RoundRectangle 18">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="OFFLINE"
+                               FontSize="11"
+                               CharacterSpacing="1"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Dark=#FFAD83, Light=#B95632}" />
+                        <Label Text="0 Saved"
+                               FontSize="17"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Dark=White, Light=#202038}" />
+                        <Label Text="Downloaded PDFs"
+                               FontSize="12"
+                               TextColor="{AppThemeBinding Dark=#B5B4D0, Light=#686680}" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
