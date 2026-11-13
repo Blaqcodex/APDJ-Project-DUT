@@ -6,6 +6,9 @@ using CampusPulse.Application.Interfaces;
 using CampusPulse.Application.Services;
 using CampusPulse.Infrastructure.Data;
 using CampusPulse.Infrastructure.Repositories;
+using CampusPulse.Infrastructure.Configuration;
+using CampusPulse.Infrastructure.Firebase;
+using CampusPulse.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +45,9 @@ builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<IModuleAccessService, ModuleAccessService>();
+builder.Services.Configure<FirebaseOptions>(builder.Configuration.GetSection(FirebaseOptions.SectionName));
+builder.Services.AddSingleton<IFirestoreContext, FirestoreContext>();
 
 // Password recovery services
 builder.Services.AddScoped<PasswordResetService>();

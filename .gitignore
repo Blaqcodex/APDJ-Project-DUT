@@ -3,3 +3,8 @@ bin/
 obj/
 *.user
 *.suo
+# Firebase & local secrets (never commit credentials)
+*firebase*adminsdk*.json
+firebase-service-account.json
+appsettings.Local.json
+secrets/
