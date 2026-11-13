@@ -48,6 +48,7 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IModuleAccessService, ModuleAccessService>();
 builder.Services.Configure<FirebaseOptions>(builder.Configuration.GetSection(FirebaseOptions.SectionName));
 builder.Services.AddSingleton<IFirestoreContext, FirestoreContext>();
+builder.Services.AddSingleton<ILearningResourceRepository, FirestoreLearningResourceRepository>();
 
 // Password recovery services
 builder.Services.AddScoped<PasswordResetService>();
